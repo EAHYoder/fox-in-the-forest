@@ -1,10 +1,10 @@
 const router = require("express").Router();
+const Sequelize = require("sequelize");
 const {
   models: { User },
 } = require("../db");
-module.exports = router;
 
-//get all user who have ever signed up
+//get all user who have ever signed up (I dont think my app needs this, but it's not a bad route to have)
 router.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -18,3 +18,19 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
+//get all users who are currenly logged in as players
+router.get("/players", async (req, res, next) => {
+  try {
+    const players = await User.findAll({
+      where: {
+        [Sequelize.Op.or]: [{ player: 0 }, { player: 1 }],
+      },
+    });
+    res.json(players);
+  } catch (err) {
+    next(err);
+  }
+});
+
+module.exports = router;

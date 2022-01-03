@@ -8,10 +8,6 @@ a {
   text-decoration: none;
 }
 
-/* label {
-  display: block;
-} */
-
 nav a {
   display: inline-block;
   margin: 1em;
@@ -28,11 +24,6 @@ nav a {
   align-content: flex-end;
   margin: 5px;
 }
-
-/* form div {
-  margin: 1em;
-  display: inline-block;
-} */
 
 .header {
   background-color: #532a09;

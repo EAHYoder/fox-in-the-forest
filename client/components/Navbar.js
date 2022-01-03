@@ -26,7 +26,7 @@ const Navbar = () => {
             <Link to="/rules" className="nav-item">
               Rules
             </Link>
-            <a href="#" className="nav-item" onClick={handleClick}>
+            <a className="nav-item" onClick={handleClick}>
               Quit Game
             </a>
           </div>

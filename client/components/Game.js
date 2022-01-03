@@ -1,12 +1,31 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPlayers } from "../store/players";
+import Player from "./Player";
+import Board from "./Board";
 
 const Game = () => {
-  const username = useSelector((state) => state.auth.username);
+  //gives us access to the redux store without using mapStateToProps
+  let auth = useSelector((state) => state.auth) || {};
+  let players = useSelector((state) => state.players) || [];
+
+  //takes the place of componentDidUpdate, and mapDispatchToProps for fetchPlayers
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPlayers());
+  }, [auth]);
 
   return (
     <div>
-      <h3>This is the game component</h3>
+      <div className="board-and-players">
+        <Player player={players[0]} />
+        <Board id="board" />
+        <Player player={players[1]} />
+      </div>
+      {/* <StartRound />
+      <PlayedCards />
+      <Hand /> */}
     </div>
   );
 };
