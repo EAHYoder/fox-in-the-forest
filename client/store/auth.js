@@ -21,7 +21,10 @@ export const me = () => async (dispatch) => {
         authorization: token,
       },
     });
-    return dispatch(setAuth(res.data));
+
+    const newPlayer = res.data;
+    socket.emit("login", newPlayer);
+    return dispatch(setAuth(newPlayer));
   }
 };
 
@@ -31,7 +34,9 @@ export const authenticate = (username, password, method) => {
     try {
       const res = await axios.post(`/auth/${method}`, { username, password });
       window.localStorage.setItem(TOKEN, res.data.token);
+
       dispatch(me());
+      history.push("/game");
     } catch (authError) {
       return dispatch(setAuth({ error: authError }));
     }

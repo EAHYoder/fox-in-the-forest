@@ -6,5 +6,9 @@ module.exports = (io) => {
     socket.on("logout", () => {
       socket.broadcast.emit("logout");
     });
+
+    socket.on("login", (newPlayer) => {
+      socket.broadcast.emit("login", newPlayer);
+    });
   });
 };
