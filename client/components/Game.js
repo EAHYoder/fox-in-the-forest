@@ -1,14 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Home = () => {
+const Game = () => {
   const username = useSelector((state) => state.auth.username);
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <h3>This is the game component</h3>
     </div>
   );
 };
 
-export default Home;
+export default Game;

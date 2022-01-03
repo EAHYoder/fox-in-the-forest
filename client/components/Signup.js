@@ -18,13 +18,13 @@ export const Signup = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} name="signup">
-        <div>
+        <div className="input-div">
           <label htmlFor="username">
             <small>Username</small>
           </label>
           <input name="username" type="text" />
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="password">
             <small>Password</small>
           </label>

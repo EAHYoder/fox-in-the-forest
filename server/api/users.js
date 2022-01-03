@@ -18,6 +18,3 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
-
-//I need a way to get all users who are currently logged in.
-//I need a way to only allow 2 users to log in at a time.
