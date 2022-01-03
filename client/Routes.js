@@ -1,60 +1,40 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
 import Home from "./components/Home";
 import { me } from "./store";
+import { useDispatch, useSelector } from "react-redux";
 
-/**
- * COMPONENT
- */
-class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData();
-  }
+const Routes = () => {
+  //useDispatch takes the place of map dispatch
+  // useEffect with an empty dependency array takes the place of componentDidMount
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(me());
+  }, []);
 
-  render() {
-    const { isLoggedIn } = this.props;
+  // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
+  //useSelector takes the place of needing to do a mapState
+  const isLoggedIn = useSelector((state) => !!state.auth.id);
 
-    return (
-      <div>
-        {isLoggedIn ? (
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Redirect to="/home" />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-          </Switch>
-        )}
-      </div>
-    );
-  }
-}
-
-/**
- * CONTAINER
- */
-const mapState = (state) => {
-  return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id,
-  };
+  return (
+    <div>
+      {isLoggedIn ? (
+        <Switch>
+          <Route path="/home" component={Home} />
+          <Redirect to="/home" />
+        </Switch>
+      ) : (
+        <Switch>
+          <Route path="/" exact component={Login} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+        </Switch>
+      )}
+    </div>
+  );
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    loadInitialData() {
-      dispatch(me());
-    },
-  };
-};
-
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes));
+export default Routes;
