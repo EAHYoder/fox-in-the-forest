@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   models: { User },
 } = require("../db");
+const Sequelize = require("sequelize");
 module.exports = router;
 
 //this generates a token for an existing user
@@ -36,4 +37,28 @@ router.get("/me", async (req, res, next) => {
   }
 });
 
-//we will need a put log out route because I want a way to see which players are logged in so that no more than 2 can log in.
+//when a player logsout/quits the game the player status of any logged in users must be changed to null.
+router.put("/logout", async (req, res, next) => {
+  try {
+    //get list of the 1-2 logged in players
+    const playersIn = await User.findAll({
+      where: {
+        [Sequelize.Op.or]: [{ player: 0 }, { player: 1 }],
+      },
+    });
+
+    //updates player status of 1-2 logged in players so they are both now null
+    if (playersIn[0]) {
+      playersIn[0].update({ player: null });
+    }
+    if (playersIn[1]) {
+      playersIn[1].update({ player: null });
+    }
+
+    //SOCKETS: need to invoke something with sockets so that the auth and token of any player whose player status was updated will be done on their client side as well.
+
+    res.send(playersIn[0]);
+  } catch (err) {
+    next(err);
+  }
+});
