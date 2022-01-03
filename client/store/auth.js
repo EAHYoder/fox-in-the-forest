@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import socket from "../socket.js";
 
 const TOKEN = "token";
 
@@ -7,7 +8,8 @@ const TOKEN = "token";
 const SET_AUTH = "SET_AUTH";
 
 //ACTION CREATORS
-const setAuth = (auth) => ({ type: SET_AUTH, auth });
+//this needs to be export so it will be available to the socket file so it can be invoked when a broadcast logout event is received.
+export const setAuth = (auth) => ({ type: SET_AUTH, auth });
 
 //THUNK CREATORS
 //this gets information about the current logged in user and put it in the store
@@ -44,10 +46,11 @@ export const logout = () => {
       //have the server update the player status of all logged in users.
       const res = await axios.put("auth/logout");
 
-      //SOCKET- maybe emit an event about the log out
-
       //if the update call to the server was successful remove token from local storage
       if (!!res.data.id) {
+        //this emits an event from the client to the server.  That will cause the server to then broadcast the event to the other users so that every logged in user's token will be removed from local storage and the auth will cleared out of their store.
+        socket.emit("logout");
+
         window.localStorage.removeItem(TOKEN);
         // update auth info in the store to be empty
         dispatch(setAuth({}));
