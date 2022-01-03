@@ -1,21 +1,314 @@
 body {
-  font-family: sans-serif;
+  font-family: Arial;
+  color: #bfab67;
+  background-color: #3e4c22;
 }
 
 a {
   text-decoration: none;
 }
 
-label {
+/* label {
   display: block;
-}
+} */
 
 nav a {
   display: inline-block;
   margin: 1em;
 }
 
-form div {
+.nav-item {
+  margin: 5px;
+  color: #bfab67;
+  align-self: flex-end;
+}
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+  margin: 5px;
+}
+
+/* form div {
   margin: 1em;
   display: inline-block;
+} */
+
+.header {
+  background-color: #532a09;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+#header-text {
+  margin: 10px;
+}
+
+input {
+  border-radius: 3px;
+  background-color: #ffe8d6;
+  border: none;
+  margin: 5px;
+}
+
+.input-div {
+  margin: 5px;
+}
+
+button {
+  background-color: #936639;
+  color: #532a09;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  height: 20px;
+}
+
+/* THE GAME*/
+.board-and-players {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #3e4c22;
+  text-align: center;
+  color: #bfab67;
+}
+
+.player {
+  /* flex-shrink: 1;
+  flex-grow: */
+  margin: 10px;
+}
+
+.larger-path {
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  margin: 15px;
+}
+
+/*space formatting*/
+.off-path {
+  background-color: #3e4c22;
+}
+
+.path {
+  background-color: #936639;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.space {
+  width: 100px;
+}
+
+.gem {
+  background-color: #9e2a2b;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  left: 50%;
+  transform: translate(50%, -0%);
+}
+
+.gem > p {
+  text-align: center;
+  color: #bfab67;
+}
+
+.no-gem {
+  background-color: #936639;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  left: 50%;
+  transform: translate(50%, -0%);
+}
+.no-gem > p {
+  text-align: center;
+  color: #936639;
+}
+
+.tracker-line {
+  height: 10px;
+  background-color: #532a09;
+  top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tracker {
+  background-image: url("https://www.clipartmax.com/png/full/228-2288366_036-fox-icon-icon.png");
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+/*card formatting*/
+.played-cards {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card,
+.card-slot {
+  height: 100px;
+  width: 60px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.card-slot {
+  background-color: #283618;
+}
+
+.card {
+  background-color: #fefae0;
+}
+
+.dove {
+  color: #40916c;
+}
+
+.star {
+  color: #073b4c;
+}
+
+.rose {
+  color: #f6bd60;
+}
+
+.card-number {
+  margin: 5px;
+}
+
+.dove-img,
+.rose-img,
+.star-img {
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #fefae0;
+  margin: 10px;
+}
+
+.dove-img {
+  background-image: url("https://image.freepik.com/free-vector/green-leaf-bird-logo_7108-43.jpg");
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+  margin-left: 10px;
+}
+
+.rose-img {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTljnyCVo-wSTEBlflFH-on47214T8BEe7dVw&usqp=CAU");
+  margin: 15px;
+  margin-bottom: 8px;
+}
+.star-img {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Blue_compass_rose.svg/2048px-Blue_compass_rose.svg.png");
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+  margin-left: 11px;
+}
+
+.paw {
+  background-image: url("https://static.vecteezy.com/system/resources/previews/003/619/221/non_2x/animal-paw-print-icon-wild-symbol-free-vector.jpg");
+  background-size: cover;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.movement {
+  display: flex;
+}
+
+#hand {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#hand-label {
+  text-align: center;
+}
+/* RULES */
+
+.rule-concept {
+  display: flex;
+  margin-top: 20px;
+}
+
+.rule-text {
+  background-color: #283618;
+  border-radius: 5px;
+  text-align: center;
+  width: 400px;
+  padding: 70px 10px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.demo-larger {
+  border: 5px solid #283618;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.rules-demo {
+  display: flex;
+  border-radius: 5px;
+}
+
+.path-demo {
+  background-color: #936639;
+  height: 100px;
+  display: flex;
+  width: 100px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.tracker-demo {
+  background-image: url("https://www.clipartmax.com/png/full/228-2288366_036-fox-icon-icon.png");
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.movement-math {
+  display: flex;
+  border-radius: 10px;
+  margin-top: 100px;
+  border: #283618 5px solid;
+  height: 30px;
+  background-color: #fefae0;
+}
+
+.movement-text {
+  color: #283618;
+  font-weight: 600;
+  margin: 10px;
+}
+
+.hand-demo {
+  display: flex;
+  justify-content: center;
+}
+
+.demo-role {
+  margin: 5px;
 }

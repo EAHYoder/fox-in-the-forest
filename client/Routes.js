@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+//thunks which need to be dispatched
+import { me } from "./store";
+//components to which routes are directed
 import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
-import Home from "./components/Home";
-import { me } from "./store";
-import { useDispatch, useSelector } from "react-redux";
+import Game from "./components/Game";
+import Rules from "./components/Rules";
 
 const Routes = () => {
   //useDispatch takes the place of map dispatch
@@ -23,8 +25,9 @@ const Routes = () => {
     <div>
       {isLoggedIn ? (
         <Switch>
-          <Route path="/home" component={Home} />
-          <Redirect to="/home" />
+          <Route path="/game" component={Game} />
+          {/* <Redirect to="/game" /> */}
+          <Route path="/rules" component={Rules} />
         </Switch>
       ) : (
         <Switch>
