@@ -5,7 +5,7 @@ const SET_HAND = "SET_HAND";
 
 //ACTION CREATOR
 //takes in an array of card objects for the hand of the authorized player
-const setHand = (hand) => {
+export const setHand = (hand) => {
   return {
     type: SET_HAND,
     hand,

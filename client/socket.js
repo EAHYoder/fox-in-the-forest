@@ -4,6 +4,8 @@ import store from "./store";
 import { setAuth } from "./store/auth";
 import { gotNewPlayerFromServer } from "./store/players";
 import { setDeal } from "./store/deal";
+import { setDecree } from "./store/decree";
+import { setHand } from "./store/authHand";
 
 const socket = io(window.location.origin);
 const TOKEN = "token";
@@ -15,6 +17,9 @@ socket.on("connect", () => {
   socket.on("logout", () => {
     window.localStorage.removeItem(TOKEN);
     store.dispatch(setAuth({}));
+    store.dispatch(setDeal({}));
+    store.dispatch(setDecree({}));
+    store.dispatch(setHand([]));
     history.push("/login");
   });
 

@@ -4,7 +4,7 @@ import axios from "axios";
 const SET_DECREE = "SET_DECREE";
 
 //ACTION CREATOR
-const setDecree = (card) => {
+export const setDecree = (card) => {
   return {
     type: SET_DECREE,
     card,
