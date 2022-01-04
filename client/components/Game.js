@@ -5,6 +5,7 @@ import Player from "./Player";
 import Board from "./Board";
 import StartRound from "./StartRound";
 import PlayedCards from "./PlayedCards";
+import Hand from "./Hand";
 
 const Game = () => {
   //gives us access to the redux store without using mapStateToProps
@@ -27,7 +28,7 @@ const Game = () => {
       </div>
       <StartRound />
       <PlayedCards />
-      {/* <Hand /> */}
+      <Hand />
     </div>
   );
 };
