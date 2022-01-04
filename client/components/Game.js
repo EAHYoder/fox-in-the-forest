@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchPlayers } from "../store/players";
 import Player from "./Player";
 import Board from "./Board";
+import StartRound from "./StartRound";
+import PlayedCards from "./PlayedCards";
+import Hand from "./Hand";
 
 const Game = () => {
   //gives us access to the redux store without using mapStateToProps
@@ -23,9 +26,9 @@ const Game = () => {
         <Board id="board" />
         <Player player={players[1]} />
       </div>
-      {/* <StartRound />
+      <StartRound />
       <PlayedCards />
-      <Hand /> */}
+      <Hand />
     </div>
   );
 };

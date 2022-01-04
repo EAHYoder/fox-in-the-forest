@@ -2,12 +2,18 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { goDeleteDeal } from "../store/deal";
+import { setDecree } from "../store/decree";
+import { setHand } from "../store/authHand";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
   const username = useSelector((state) => state.auth.username);
   const dispatch = useDispatch();
   const handleClick = () => {
+    dispatch(goDeleteDeal());
+    dispatch(setDecree({}));
+    dispatch(setHand([]));
     dispatch(logout());
   };
   return (

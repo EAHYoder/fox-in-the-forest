@@ -5,6 +5,7 @@ const db = require("./db");
 const User = require("./models/User");
 const Space = require("./models/space");
 const Card = require("./models/card");
+const Deal = require("./models/deal");
 //associations could go here!
 
 module.exports = {
@@ -13,5 +14,6 @@ module.exports = {
     User,
     Space,
     Card,
+    Deal,
   },
 };
