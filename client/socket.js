@@ -1,8 +1,9 @@
 import io from "socket.io-client";
+import history from "./history";
 import store from "./store";
 import { setAuth } from "./store/auth";
 import { gotNewPlayerFromServer } from "./store/players";
-import history from "./history";
+import { setDeal } from "./store/deal";
 
 const socket = io(window.location.origin);
 const TOKEN = "token";
@@ -20,6 +21,10 @@ socket.on("connect", () => {
   //this will receive emits from the server about another players logging in. That will cause the local store to be correctly updated with the new player's info so the board will display correctly.
   socket.on("login", (newPlayer) => {
     store.dispatch(gotNewPlayerFromServer(newPlayer));
+  });
+
+  socket.on("newDeal", (newDeal) => {
+    store.dispatch(setDeal(newDeal));
   });
 });
 

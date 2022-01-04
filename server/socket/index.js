@@ -10,5 +10,9 @@ module.exports = (io) => {
     socket.on("login", (newPlayer) => {
       socket.broadcast.emit("login", newPlayer);
     });
+
+    socket.on("newDeal", (newDeal) => {
+      socket.broadcast.emit("newDeal", newDeal);
+    });
   });
 };

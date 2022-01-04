@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
   players,
   deal,
   decree,
+  authHand,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

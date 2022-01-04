@@ -15,11 +15,14 @@ const PlayedCards = () => {
   }
 
   //when the decree Id becomes available in the store use it to go get the decree object from the server.
-  let decreeId = useSelector((state) => state.deal.decree);
+  let decreeId = useSelector((state) => state.deal.decree) || 0;
 
   let dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchdecree(decreeId));
+    //only try to fetch the decree card if the Id for the decree has been set.
+    if (decreeId) {
+      dispatch(fetchdecree(decreeId));
+    }
   }, [decreeId]);
   let decreeCard = useSelector((state) => state.decree) || {};
 

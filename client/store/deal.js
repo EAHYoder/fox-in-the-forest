@@ -1,11 +1,12 @@
 import axios from "axios";
+import socket from "../socket.js";
 
 //ACTION TYPE
 const SET_DEAL = "SET_DEAL";
 const DELETE_DEAL = "DELETE_DEAL";
 
 //ACTION CREATOR
-const setDeal = (deal) => {
+export const setDeal = (deal) => {
   return {
     type: SET_DEAL,
     deal,
@@ -36,8 +37,9 @@ export const goMakeDeal = () => {
   return async (dispatch) => {
     try {
       let response = await axios.post("/api/deal");
-      return dispatch(setDeal(response.data));
-      //socket should go here to tell the server to tell the other players that a new deal has been made.
+      const newDeal = response.data;
+      socket.emit("newDeal", newDeal); //this socket tells the server to tell the other player about the new deal.
+      return dispatch(setDeal(newDeal));
     } catch (error) {
       console.log("There was an error in dealing out cards on the server");
     }
