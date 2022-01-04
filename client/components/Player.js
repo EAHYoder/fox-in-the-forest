@@ -11,7 +11,10 @@ const Player = (props) => {
       {playerName === "" ? (
         <h5>Waiting for this player to join</h5>
       ) : (
-        <h4>{playerName}</h4>
+        <div>
+          <h4>{playerName}</h4>
+          {props.player.isActive ? <h5>Active Player</h5> : <h5></h5>}
+        </div>
       )}
     </div>
   );

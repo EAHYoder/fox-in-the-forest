@@ -33,4 +33,25 @@ router.get("/players", async (req, res, next) => {
   }
 });
 
+//update information about the users who are currently logged in as players
+router.put("/players", async (req, res, next) => {
+  try {
+    //establish what the new player objects are from the req.body
+    const newPlayer0 = req.body[0];
+    const newPlayer1 = req.body[1];
+
+    //use the id from the new version of the players to find the old version of them in the database (because the id is something that will never be modified)
+    const player0 = await User.findByPk(newPlayer0.id);
+    const player1 = await User.findByPk(newPlayer1.id);
+
+    //update the players to reflect their new versions.
+    await player0.update(newPlayer0);
+    await player1.update(newPlayer1);
+
+    res.json([player0, player1]);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

@@ -14,5 +14,9 @@ module.exports = (io) => {
     socket.on("newDeal", (newDeal) => {
       socket.broadcast.emit("newDeal", newDeal);
     });
+
+    socket.on("updatePlayers", (newPlayers) => {
+      socket.broadcast.emit("updatePlayers", newPlayers);
+    });
   });
 };

@@ -2,7 +2,11 @@ import io from "socket.io-client";
 import history from "./history";
 import store from "./store";
 import { setAuth } from "./store/auth";
-import { gotNewPlayerFromServer } from "./store/players";
+import {
+  gotNewPlayerFromServer,
+  goUpdatePlayers,
+  setPlayers,
+} from "./store/players";
 import { setDeal } from "./store/deal";
 import { setDecree } from "./store/decree";
 import { setHand } from "./store/authHand";
@@ -30,6 +34,10 @@ socket.on("connect", () => {
 
   socket.on("newDeal", (newDeal) => {
     store.dispatch(setDeal(newDeal));
+  });
+
+  socket.on("updatePlayers", (newPlayers) => {
+    store.dispatch(setPlayers(newPlayers));
   });
 });
 

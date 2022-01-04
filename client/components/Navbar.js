@@ -5,16 +5,25 @@ import { logout } from "../store";
 import { goDeleteDeal } from "../store/deal";
 import { setDecree } from "../store/decree";
 import { setHand } from "../store/authHand";
+import { goUpdatePlayers } from "../store/players";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
   const username = useSelector((state) => state.auth.username);
   const dispatch = useDispatch();
+  const players = useSelector((state) => state.players) || [];
   const handleClick = () => {
     dispatch(goDeleteDeal());
     dispatch(setDecree({}));
     dispatch(setHand([]));
     dispatch(logout());
+
+    const nonActiveNonLeadingPlayers = players.map((player) => {
+      player.isActive = false;
+      player.isLeading = false;
+      return player;
+    });
+    dispatch(goUpdatePlayers(nonActiveNonLeadingPlayers));
   };
   return (
     <div className="header">
