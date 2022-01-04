@@ -5,11 +5,16 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
 import spaces from "./spaces";
 import players from "./players";
+import deal from "./deal";
+import decree from "./decree";
+import authHand from "./authHand";
 
 const rootReducer = combineReducers({
   auth,
   spaces,
   players,
+  deal,
+  decree,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
