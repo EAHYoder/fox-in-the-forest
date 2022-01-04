@@ -35,7 +35,7 @@ router.post("/", async (req, res, next) => {
     //MAKE AN ARRAY OF CARD IDs IN RANDOM ORDER FROM WHICH YOU CAN DEAL
     //list out the card IDs that needs to be shuffled
     let unshuffledCardIds = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 1; i < 31; i++) {
       unshuffledCardIds.push(i);
     }
     let remainingCardCount = 30;

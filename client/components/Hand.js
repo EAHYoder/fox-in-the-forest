@@ -22,6 +22,7 @@ const Hand = () => {
 
   //when the array of IDs for cards that go into this  player's hand is available in the store use it to go get an array of card objects from the store.
   let handIds = useSelector((state) => state.deal[`player${authId}Hand`]) || [];
+  console.log("handIds", handIds);
 
   let dispatch = useDispatch();
   useEffect(() => {
@@ -32,6 +33,7 @@ const Hand = () => {
   }, [handIds, authId]);
 
   let authHand = useSelector((state) => state.authHand) || [];
+  console.log("authHand", authHand);
 
   return (
     <div>
