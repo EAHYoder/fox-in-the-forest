@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import history from "./history";
 import store from "./store";
-import { setAuth } from "./store/auth";
+import { setAuth, me } from "./store/auth";
 import {
   gotNewPlayerFromServer,
   goUpdatePlayers,
@@ -10,6 +10,7 @@ import {
 import { setDeal } from "./store/deal";
 import { setDecree } from "./store/decree";
 import { setHand } from "./store/authHand";
+import { setPlayerCard } from "./store/playedCards";
 
 const socket = io(window.location.origin);
 const TOKEN = "token";
@@ -38,6 +39,11 @@ socket.on("connect", () => {
 
   socket.on("updatePlayers", (newPlayers) => {
     store.dispatch(setPlayers(newPlayers));
+    store.dispatch(me()); //this is needed to update on auth in the store whether the player is active.
+  });
+
+  socket.on("playCard", ({ card, playerNum }) => {
+    store.dispatch(setPlayerCard(card, playerNum));
   });
 });
 
