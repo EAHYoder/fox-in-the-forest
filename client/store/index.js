@@ -8,6 +8,7 @@ import players from "./players";
 import deal from "./deal";
 import decree from "./decree";
 import authHand from "./authHand";
+import playedCards from "./playedCards";
 
 const rootReducer = combineReducers({
   auth,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   deal,
   decree,
   authHand,
+  playedCards,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

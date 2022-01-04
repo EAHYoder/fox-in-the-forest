@@ -18,5 +18,9 @@ module.exports = (io) => {
     socket.on("updatePlayers", (newPlayers) => {
       socket.broadcast.emit("updatePlayers", newPlayers);
     });
+
+    socket.on("playCard", ({ card, playerNum }) => {
+      socket.broadcast.emit("playCard", { card, playerNum });
+    });
   });
 };

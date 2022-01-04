@@ -23,7 +23,6 @@ export const me = () => async (dispatch) => {
     });
 
     const newPlayer = res.data;
-    socket.emit("login", newPlayer);
     return dispatch(setAuth(newPlayer));
   }
 };
@@ -33,9 +32,20 @@ export const authenticate = (username, password, method) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(`/auth/${method}`, { username, password });
-      window.localStorage.setItem(TOKEN, res.data.token);
+      const token = res.data.token;
+      window.localStorage.setItem(TOKEN, token);
 
-      dispatch(me());
+      //this second axios call is here (rather than simply dispatching me() because we need to emit login here rather than in me.  otherwise the player update gets triggered every time me() is called.)
+      const res2 = await axios.get("/auth/me", {
+        headers: {
+          authorization: token,
+        },
+      });
+
+      const newPlayer = res2.data;
+      socket.emit("login", newPlayer);
+
+      dispatch(setAuth(newPlayer));
       history.push("/game");
     } catch (authError) {
       return dispatch(setAuth({ error: authError }));

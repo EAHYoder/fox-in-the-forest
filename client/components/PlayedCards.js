@@ -26,16 +26,14 @@ const PlayedCards = () => {
   }, [decreeId]);
   let decreeCard = useSelector((state) => state.decree) || {};
 
-  // let player0Card = useSelector((state) => state.player0Card) || {};
-  // let player1Card = useSelector((state) => state.player1Card) || {};
+  let [player0Card, player1Card] =
+    useSelector((state) => state.playedCards) || [];
 
   return (
     <div className="played-cards">
       <Card
         cardRole={`${player0Name}'s Card`}
-        card={
-          null /*once we have routes to getplayer0Card we will put it here*/
-        }
+        card={player0Card.id ? player0Card : null}
       />
       <Card
         cardRole="Decree Card"
@@ -43,9 +41,7 @@ const PlayedCards = () => {
       />
       <Card
         cardRole={`${player1Name}'s Card`}
-        card={
-          null /*once we have routes to getplayer1Card we will put it here*/
-        }
+        card={player1Card.id ? player1Card : null}
       />
     </div>
   );
