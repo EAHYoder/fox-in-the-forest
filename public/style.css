@@ -7,7 +7,10 @@ body {
 a {
   text-decoration: none;
 }
-
+#header-text > h1 {
+  color: #bc6c25;
+  font-family: "Copperplate";
+}
 nav a {
   display: inline-block;
   margin: 1em;
@@ -17,6 +20,10 @@ nav a {
   margin: 5px;
   color: #bfab67;
   align-self: flex-end;
+}
+
+.nav-item:hover {
+  font-weight: 700;
 }
 .nav-links {
   display: flex;
