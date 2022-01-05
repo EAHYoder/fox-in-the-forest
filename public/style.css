@@ -79,6 +79,10 @@ button {
   margin: 10px;
 }
 
+.active-label {
+  color: #bc6c25;
+}
+
 .larger-path {
   display: flex;
   justify-content: center;

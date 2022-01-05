@@ -38,7 +38,7 @@ const PlayedCards = (props) => {
       <div ref={props.player0CardSlot}>
         <Card
           cardRole={`${player0Name}'s Card`}
-          card={player0Card.card.id ? player0Card.card : null}
+          card={player0Card.id ? player0Card : null}
         />
       </div>
       <div>
@@ -50,7 +50,7 @@ const PlayedCards = (props) => {
       <div ref={props.player1CardSlot}>
         <Card
           cardRole={`${player1Name}'s Card`}
-          card={player1Card.card.id ? player1Card.card : null}
+          card={player1Card.id ? player1Card : null}
         />
       </div>
     </div>

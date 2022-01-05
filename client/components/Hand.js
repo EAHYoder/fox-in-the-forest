@@ -37,6 +37,7 @@ const Hand = (props) => {
                 cardRole=""
                 player0CardSlot={props.player0CardSlot}
                 player1CardSlot={props.player1CardSlot}
+                fox={props.fox}
               />
             </div>
           );
