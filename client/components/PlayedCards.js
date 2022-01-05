@@ -1,24 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useLayoutEffect } from "react";
 import Card from "./Card";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchdecree } from "../store/decree";
+import { setCardPositions } from "../store/playedCards";
 
 const PlayedCards = () => {
   let players = useSelector((state) => state.players) || [];
-  // let player0Name = "First Player";
-  // if (player0.username) {
-  //   player0Name = players[0].username;
-  // }
+
   let [player0] = players.filter((user) => {
     return user.player === 0;
   });
   let player0Name =
     player0 && player0.username ? player0.username : "First Player";
-
-  // let player1Name = "Second Player";
-  // if (players[1] && players[1].username) {
-  //   player1Name = players[1].username;
-  // }
 
   let [player1] = players.filter((user) => {
     return user.player === 1;
@@ -38,23 +31,46 @@ const PlayedCards = () => {
   }, [decreeId]);
   let decreeCard = useSelector((state) => state.decree) || {};
 
-  let [player0Card, player1Card] =
-    useSelector((state) => state.playedCards) || [];
+  let { player0Card, player1Card } =
+    useSelector((state) => state.playedCards) || {};
+
+  //obtain the position of the played card for each player.
+  const player0CardSlot = useRef(null);
+  const player1CardSlot = useRef(null);
+
+  //put the positions of played cards in the store.  this will allow the Hand Component to access it so card play can be animated.
+  useLayoutEffect(() => {
+    const player0CardPos = [
+      player0CardSlot.current.getBoundingClientRect().x,
+      player0CardSlot.current.getBoundingClientRect().y,
+    ];
+    const player1CardPos = [
+      player1CardSlot.current.getBoundingClientRect().x,
+      player1CardSlot.current.getBoundingClientRect().y,
+    ];
+    dispatch(setCardPositions(player0CardPos, player1CardPos));
+  }, []);
 
   return (
     <div className="played-cards">
-      <Card
-        cardRole={`${player0Name}'s Card`}
-        card={player0Card.id ? player0Card : null}
-      />
-      <Card
-        cardRole="Decree Card"
-        card={decreeCard === {} ? null : decreeCard}
-      />
-      <Card
-        cardRole={`${player1Name}'s Card`}
-        card={player1Card.id ? player1Card : null}
-      />
+      <div ref={player0CardSlot}>
+        <Card
+          cardRole={`${player0Name}'s Card`}
+          card={player0Card.card.id ? player0Card.card : null}
+        />
+      </div>
+      <div>
+        <Card
+          cardRole="Decree Card"
+          card={decreeCard === {} ? null : decreeCard}
+        />
+      </div>
+      <div ref={player1CardSlot}>
+        <Card
+          cardRole={`${player1Name}'s Card`}
+          card={player1Card.card.id ? player1Card.card : null}
+        />
+      </div>
     </div>
   );
 };
