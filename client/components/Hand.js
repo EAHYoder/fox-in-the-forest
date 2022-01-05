@@ -3,7 +3,7 @@ import Card from "./Card";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchHand } from "../store/authHand";
 
-const Hand = () => {
+const Hand = (props) => {
   let thisPlayer = useSelector((state) => state.auth) || {};
 
   //establish what id should be used to access the handIds.
@@ -32,7 +32,12 @@ const Hand = () => {
         {authHand.map((card) => {
           return (
             <div key={card.id} className="hand-card">
-              <Card card={card} cardRole="" />
+              <Card
+                card={card}
+                cardRole=""
+                player0CardSlot={props.player0CardSlot}
+                player1CardSlot={props.player1CardSlot}
+              />
             </div>
           );
         })}

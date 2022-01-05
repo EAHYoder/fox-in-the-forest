@@ -108,28 +108,23 @@ const Card = (props) => {
       };
 
       //animate movement of the card
-      //PROBLEM: whether the card goes to the correct location varies a lot on whether we have scrolled down since the location of the destination was put in the store.
-      //but even if user hasn't scrolled.... the card still isnt going to the right place.
+      //tget the destination from the handle passed through props from Game component.
       let destinationX =
-        thisPlayerNum === 0 ? playedCardSlot0[0] : playedCardSlot1[0];
+        thisPlayerNum === 0
+          ? props.player0CardSlot.current.getBoundingClientRect().x
+          : props.player1CardSlot.current.getBoundingClientRect().x;
+
       let destinationY =
-        thisPlayerNum === 0 ? playedCardSlot0[1] : playedCardSlot1[1];
+        thisPlayerNum === 0
+          ? props.player0CardSlot.current.getBoundingClientRect().y
+          : props.player1CardSlot.current.getBoundingClientRect().y;
 
       let thisCardX = thisCard.current.getBoundingClientRect().x;
       let thisCardY = thisCard.current.getBoundingClientRect().y;
 
-      let cardHeight = thisCard.current.getBoundingClientRect().height;
-      let cardWidth = thisCard.current.getBoundingClientRect().width;
-      const travelX = destinationX - thisCardX;
-      const travelY = destinationY - thisCardY;
+      const travelX = destinationX - thisCardX + 10;
+      const travelY = destinationY - thisCardY + 65;
 
-      console.log("destination X", destinationX);
-      console.log("destination Y", destinationY);
-      console.log("Starting X", destinationX);
-      console.log("Starting Y", destinationY);
-      console.log("card height", cardHeight);
-      console.log("travel X", travelX);
-      console.log("travel y", travelY);
       anime({
         targets: thisCard.current,
         translateX: travelX,
@@ -148,7 +143,13 @@ const Card = (props) => {
       <h4>{props.cardRole}</h4>
       <div
         ref={thisCard}
-        onClick={() => playCard(card)}
+        onClick={
+          props.cardRole === ""
+            ? () => playCard(card)
+            : () => {
+                console.log("");
+              }
+        }
         className={card.id ? "card" : "card-slot"}
       >
         {card ? (

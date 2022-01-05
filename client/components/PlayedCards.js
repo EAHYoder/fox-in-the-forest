@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useLayoutEffect } from "react";
 import Card from "./Card";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchdecree } from "../store/decree";
-import { setCardPositions } from "../store/playedCards";
 
-const PlayedCards = () => {
+const PlayedCards = (props) => {
   let players = useSelector((state) => state.players) || [];
 
   let [player0] = players.filter((user) => {
@@ -34,26 +33,9 @@ const PlayedCards = () => {
   let { player0Card, player1Card } =
     useSelector((state) => state.playedCards) || {};
 
-  //obtain the position of the played card for each player.
-  const player0CardSlot = useRef(null);
-  const player1CardSlot = useRef(null);
-
-  //put the positions of played cards in the store.  this will allow the Hand Component to access it so card play can be animated.
-  useLayoutEffect(() => {
-    const player0CardPos = [
-      player0CardSlot.current.getBoundingClientRect().x,
-      player0CardSlot.current.getBoundingClientRect().y,
-    ];
-    const player1CardPos = [
-      player1CardSlot.current.getBoundingClientRect().x,
-      player1CardSlot.current.getBoundingClientRect().y,
-    ];
-    dispatch(setCardPositions(player0CardPos, player1CardPos));
-  }, []);
-
   return (
     <div className="played-cards">
-      <div ref={player0CardSlot}>
+      <div ref={props.player0CardSlot}>
         <Card
           cardRole={`${player0Name}'s Card`}
           card={player0Card.card.id ? player0Card.card : null}
@@ -65,7 +47,7 @@ const PlayedCards = () => {
           card={decreeCard === {} ? null : decreeCard}
         />
       </div>
-      <div ref={player1CardSlot}>
+      <div ref={props.player1CardSlot}>
         <Card
           cardRole={`${player1Name}'s Card`}
           card={player1Card.card.id ? player1Card.card : null}
