@@ -108,15 +108,26 @@ const Card = (props) => {
       };
 
       //animate movement of the card
-      const travelX =
-        thisPlayerNum === 0
-          ? playedCardSlot0[0] - thisCard.current.getBoundingClientRect().x
-          : playedCardSlot1[0] - thisCard.current.getBoundingClientRect().x;
-      const travelY =
-        thisPlayerNum === 0
-          ? playedCardSlot0[1] - thisCard.current.getBoundingClientRect().y
-          : playedCardSlot1[1] - thisCard.current.getBoundingClientRect().y;
+      //PROBLEM: whether the card goes to the correct location varies a lot on whether we have scrolled down since the location of the destination was put in the store.
+      //but even if user hasn't scrolled.... the card still isnt going to the right place.
+      let destinationX =
+        thisPlayerNum === 0 ? playedCardSlot0[0] : playedCardSlot1[0];
+      let destinationY =
+        thisPlayerNum === 0 ? playedCardSlot0[1] : playedCardSlot1[1];
 
+      let thisCardX = thisCard.current.getBoundingClientRect().x;
+      let thisCardY = thisCard.current.getBoundingClientRect().y;
+
+      let cardHeight = thisCard.current.getBoundingClientRect().height;
+      let cardWidth = thisCard.current.getBoundingClientRect().width;
+      const travelX = destinationX - thisCardX;
+      const travelY = destinationY - thisCardY;
+
+      console.log("destination X", destinationX);
+      console.log("destination Y", destinationY);
+      console.log("Starting X", destinationX);
+      console.log("Starting Y", destinationY);
+      console.log("card height", cardHeight);
       console.log("travel X", travelX);
       console.log("travel y", travelY);
       anime({
