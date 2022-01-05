@@ -87,35 +87,46 @@ const Card = (props) => {
       //if it is not the first card in the trick check suit of the first card.
       //does this hand have a card of that suit?  if so one of those cards must be played.
 
+      const happensAfterAnime = () => {
+        //remove the card from authHand
+        const newHand = authHand.filter((card) => {
+          return card.id !== playedCard.id;
+        });
+        dispatch(setHand(newHand));
+
+        //make this card the played Card for this player(this will involve emitted an event about the played Card)
+        dispatch(emitPlayedCard(playedCard, thisPlayerNum));
+
+        //update both players to indicate that the activeplayer has switched.
+        thisPlayer.isActive = false;
+        otherPlayer.isActive = true;
+        dispatch(goUpdatePlayers([thisPlayer, otherPlayer]));
+
+        // have both cards in this trick been played?  check the playedCards from store.  if so
+        // switch leading player.
+        // evaluate who won the trick
+      };
+
       //animate movement of the card
-      // const travelX=(thisPlayerNum===0)?(playedCardSlot0[0]-thisCard.current.getBoundingClientRect().x):(playedCardSlot1[0]-thisCard.current.getBoundingClientRect().x)
-      // const travelY=(thisPlayerNum===0)?(playedCardSlot0[1]-thisCard.current.getBoundingClientRect().y):(playedCardSlot1[1]-thisCard.current.getBoundingClientRect().y)
+      const travelX =
+        thisPlayerNum === 0
+          ? playedCardSlot0[0] - thisCard.current.getBoundingClientRect().x
+          : playedCardSlot1[0] - thisCard.current.getBoundingClientRect().x;
+      const travelY =
+        thisPlayerNum === 0
+          ? playedCardSlot0[1] - thisCard.current.getBoundingClientRect().y
+          : playedCardSlot1[1] - thisCard.current.getBoundingClientRect().y;
 
-      // anime({
-      //   targets: thisCard.current,
-      //   translateX: travelX,
-      //   translateY: travelY,
-      //   duration: 1500,
-      //   easing: "easeInOutQuad",
-      // })
-
-      //remove the card from authHand
-      const newHand = authHand.filter((card) => {
-        return card.id !== playedCard.id;
+      console.log("travel X", travelX);
+      console.log("travel y", travelY);
+      anime({
+        targets: thisCard.current,
+        translateX: travelX,
+        translateY: travelY,
+        duration: 1500,
+        easing: "easeInOutQuad",
+        complete: happensAfterAnime,
       });
-      dispatch(setHand(newHand));
-
-      //make this card the played Card for this player(this will involve emitted an event about the played Card)
-      dispatch(emitPlayedCard(playedCard, thisPlayerNum));
-
-      //update both players to indicate that the activeplayer has switched.
-      thisPlayer.isActive = false;
-      otherPlayer.isActive = true;
-      dispatch(goUpdatePlayers([thisPlayer, otherPlayer]));
-
-      //have both cards in this trick been played?  check the playedCards from store.  if so
-      // switch leading player.
-      //evaluate who won the trick
     } else {
       alert("You cannot play a card unless you are the active player");
     }
