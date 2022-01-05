@@ -11,7 +11,12 @@ const Game = () => {
   //gives us access to the redux store without using mapStateToProps
   let auth = useSelector((state) => state.auth) || {};
   let players = useSelector((state) => state.players) || [];
-
+  let [player0] = players.filter((user) => {
+    return user.player === 0;
+  });
+  let [player1] = players.filter((user) => {
+    return user.player === 1;
+  });
   //takes the place of componentDidUpdate, and mapDispatchToProps for fetchPlayers
   const dispatch = useDispatch();
 
@@ -22,9 +27,9 @@ const Game = () => {
   return (
     <div>
       <div className="board-and-players">
-        <Player player={players[0]} />
+        <Player player={player0} />
         <Board id="board" />
-        <Player player={players[1]} />
+        <Player player={player1} />
       </div>
       <StartRound />
       <PlayedCards />
