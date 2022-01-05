@@ -30,10 +30,12 @@ export default (state = [{}, {}], action) => {
   switch (action.type) {
     case SET_PLAYER_CARD:
       if (action.playerNum === 0) {
-        return [action.card, state.slice(1)];
+        let [player1Card] = state.slice(1);
+        return [action.card, player1Card];
       }
       if (action.playerNum === 1) {
-        return [state.slice(0, 1), action.card];
+        let [player0Card] = state.slice(0, 1);
+        return [player0Card, action.card];
       }
       return state;
     default:
