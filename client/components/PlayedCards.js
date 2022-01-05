@@ -5,14 +5,26 @@ import { fetchdecree } from "../store/decree";
 
 const PlayedCards = () => {
   let players = useSelector((state) => state.players) || [];
-  let player0Name = "First Player";
-  if (players[0] && players[0].username) {
-    player0Name = players[0].username;
-  }
-  let player1Name = "Second Player";
-  if (players[1] && players[1].username) {
-    player1Name = players[1].username;
-  }
+  // let player0Name = "First Player";
+  // if (player0.username) {
+  //   player0Name = players[0].username;
+  // }
+  let [player0] = players.filter((user) => {
+    return user.player === 0;
+  });
+  let player0Name =
+    player0 && player0.username ? player0.username : "First Player";
+
+  // let player1Name = "Second Player";
+  // if (players[1] && players[1].username) {
+  //   player1Name = players[1].username;
+  // }
+
+  let [player1] = players.filter((user) => {
+    return user.player === 1;
+  });
+  let player1Name =
+    player1 && player1.username ? player1.username : "Second Player";
 
   //when the decree Id becomes available in the store use it to go get the decree object from the server.
   let decreeId = useSelector((state) => state.deal.decree) || 0;
