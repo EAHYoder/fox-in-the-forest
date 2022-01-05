@@ -10,7 +10,7 @@ import {
 import { setDeal } from "./store/deal";
 import { setDecree } from "./store/decree";
 import { setHand } from "./store/authHand";
-import { setPlayerCard } from "./store/playedCards";
+import { setPlayer0Card, setPlayer1Card } from "./store/playedCards";
 
 const socket = io(window.location.origin);
 const TOKEN = "token";
@@ -43,7 +43,12 @@ socket.on("connect", () => {
   });
 
   socket.on("playCard", ({ card, playerNum }) => {
-    store.dispatch(setPlayerCard(card, playerNum));
+    if (playerNum === 0) {
+      store.dispatch(setPlayer0Card(card));
+    }
+    if (playerNum === 1) {
+      store.dispatch(setPlayer1Card(card));
+    }
   });
 });
 

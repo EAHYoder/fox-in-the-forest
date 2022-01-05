@@ -2,15 +2,31 @@ import axios from "axios";
 import socket from "../socket.js";
 
 //ACTION TYPE
-const SET_PLAYER_CARD = "SET_PLAYER_CARD";
+const SET_PLAYER0_CARD = "SET_PLAYER0_CARD";
+const SET_PLAYER1_CARD = "SET_PLAYER1_CARD";
+const SET_CARD_POSITIONS = "SET_CARD_POSITIONS";
 
 //ACTION CREATOR
 //PlayerNum will be either 0 or 1.
-export const setPlayerCard = (card, playerNum) => {
+export const setPlayer0Card = (card) => {
   return {
-    type: SET_PLAYER_CARD,
+    type: SET_PLAYER0_CARD,
     card,
-    playerNum,
+  };
+};
+
+export const setPlayer1Card = (card) => {
+  return {
+    type: SET_PLAYER1_CARD,
+    card,
+  };
+};
+
+export const setCardPositions = (player0CardPos, player1CardPos) => {
+  return {
+    type: SET_CARD_POSITIONS,
+    player0CardPos,
+    player1CardPos,
   };
 };
 
@@ -19,23 +35,41 @@ export const setPlayerCard = (card, playerNum) => {
 export const emitPlayedCard = (card, playerNum) => {
   return (dispatch) => {
     socket.emit("playCard", { card, playerNum });
-    return dispatch(setPlayerCard(card, playerNum));
+    if (playerNum === 0) {
+      return dispatch(setPlayer0Card(card));
+    }
+    if (playerNum === 1) {
+      return dispatch(setPlayer1Card(card));
+    }
   };
 };
 
 //REDUCER
-//The card for player0 is in the 0th slot.
-//The card for player1 is in the 1st slot
-export default (state = [{}, {}], action) => {
+const initialState = {
+  player0Card: {
+    card: {},
+    position: [],
+  },
+  player1Card: {
+    card: {},
+    position: [],
+  },
+};
+
+export default (state = initialState, action) => {
+  let newPlayer0Card = { ...state.player0Card };
+  let newPlayer1Card = { ...state.player1Card };
   switch (action.type) {
-    case SET_PLAYER_CARD:
-      if (action.playerNum === 0) {
-        return [action.card, state.slice(1)];
-      }
-      if (action.playerNum === 1) {
-        return [state.slice(0, 1), action.card];
-      }
-      return state;
+    case SET_PLAYER0_CARD:
+      newPlayer0Card.card = action.card;
+      return { player0Card: newPlayer0Card, player1Card: newPlayer1Card };
+    case SET_PLAYER1_CARD:
+      newPlayer1Card.card = action.card;
+      return { player0Card: newPlayer0Card, player1Card: newPlayer1Card };
+    case SET_CARD_POSITIONS:
+      newPlayer0Card.position = action.player0CardPos;
+      newPlayer1Card.position = action.player1CardPos;
+      return { player0Card: newPlayer0Card, player1Card: newPlayer1Card };
     default:
       return state;
   }

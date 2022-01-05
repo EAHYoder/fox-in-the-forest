@@ -41,7 +41,7 @@ const Demo3 = () => {
   const hoverDiv = useRef(null);
 
   useLayoutEffect(() => {
-    //done gets rest to true when the mouse leaves the anime div.
+    //done gets reset to true when the mouse leaves the anime div.
     let done = false;
 
     const handleHover = () => {
