@@ -29,6 +29,9 @@ const Navbar = () => {
     <div className="header">
       <div id="header-text">
         <h1>The Fox in the Forest</h1>
+        <h5>
+          by <em>Foxtrot Games</em> + <em>Renegade Game Studios</em>
+        </h5>
         {isLoggedIn ? <h4>Welcome, {username}</h4> : <h3></h3>}
       </div>
       <nav>
