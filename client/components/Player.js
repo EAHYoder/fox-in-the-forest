@@ -13,7 +13,11 @@ const Player = (props) => {
       ) : (
         <div>
           <h4>{playerName}</h4>
-          {props.player.isActive ? <h5>Active Player</h5> : <h5></h5>}
+          {props.player.isActive ? (
+            <h5 className="active-label">Active Player</h5>
+          ) : (
+            <h5></h5>
+          )}
         </div>
       )}
     </div>

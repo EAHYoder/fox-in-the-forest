@@ -4,7 +4,7 @@ import axios from "axios";
 const SET_SPACES = "SET_SPACES";
 
 //ACTION CREATOR
-const setSpaces = (spaces) => {
+export const setSpaces = (spaces) => {
   return {
     type: SET_SPACES,
     spaces,

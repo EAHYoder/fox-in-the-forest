@@ -5,14 +5,6 @@ import { emitPlayedCard } from "../store/playedCards";
 import { goUpdatePlayers } from "../store/players";
 import anime from "animejs/lib/anime.es.js";
 
-let dummyCard = {
-  id: 32,
-  suit: "rose",
-  number: 2,
-  movement: 2,
-  special: null,
-};
-
 const Card = (props) => {
   let card = props.card || {};
 
@@ -50,14 +42,6 @@ const Card = (props) => {
 
   //we will need to be able to dispatch actions and thunks inside the playcard handler.
   let dispatch = useDispatch();
-
-  //The position of the playedCard slot for each player is needed to animate the movement of a card being played.
-  const playedCardSlot0 = useSelector(
-    (state) => state.playedCards.player0Card.position
-  );
-  const playedCardSlot1 = useSelector(
-    (state) => state.playedCards.player1Card.position
-  );
 
   //put a handle on the card.  this is needed to animate playing a card
   const thisCard = useRef(null);
@@ -101,14 +85,10 @@ const Card = (props) => {
         thisPlayer.isActive = false;
         otherPlayer.isActive = true;
         dispatch(goUpdatePlayers([thisPlayer, otherPlayer]));
-
-        // have both cards in this trick been played?  check the playedCards from store.  if so
-        // switch leading player.
-        // evaluate who won the trick
       };
 
       //animate movement of the card
-      //tget the destination from the handle passed through props from Game component.
+      //get the destination from the handle passed through props from Game component.
       let destinationX =
         thisPlayerNum === 0
           ? props.player0CardSlot.current.getBoundingClientRect().x

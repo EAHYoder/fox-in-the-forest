@@ -24,9 +24,12 @@ const Game = () => {
     dispatch(fetchPlayers());
   }, [auth]);
 
-  //establish handles for the playercard slots which can be passed to both PlayedCards (will the ref will be attached to the correct div) and Hand (where the handle will be used to access the card slot positions)
+  //establish handles for the playercard slots which can be passed to both PlayedCards (so the ref will be attached to the correct div) and Hand (where the handle will be used to access the card slot positions)
   const player0CardSlot = useRef(null);
   const player1CardSlot = useRef(null);
+
+  //establish hanlde from the fox which can be passed to Hand->Card (so the handle can be used to animate the fox movement) and Board->space (so the ref will be attached to the correct div)
+  // const fox = useRef(null);
 
   return (
     <div>

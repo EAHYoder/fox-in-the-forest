@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const Space = (props) => {
   let { trackerPresent, onPath, gemCount, gemIncrement } = props.space;
+  const noFox = useRef(null);
   return (
     <div className="space">
       {onPath ? (
@@ -10,7 +11,10 @@ const Space = (props) => {
             <p>{gemCount}</p>
           </div>
           <div className="tracker-line">
-            <div className={trackerPresent ? "tracker" : ""}></div>
+            <div
+              className={trackerPresent ? "tracker" : ""}
+              ref={trackerPresent ? props.fox : noFox}
+            ></div>
           </div>
         </div>
       ) : (
