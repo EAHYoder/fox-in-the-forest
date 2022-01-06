@@ -1,11 +1,17 @@
 import React, { useEffect, useRef } from "react";
 import Space from "./Space";
-import { fetchSpaces } from "../store/spaces";
+import { fetchSpaces, setSpaces } from "../store/spaces";
+import { goUpdatePlayers } from "../store/players";
 import { useSelector, useDispatch } from "react-redux";
 import anime from "animejs/lib/anime.es.js";
 
 const Board = (props) => {
   let spaces = useSelector((state) => state.spaces) || [];
+
+  //establish which space has fox.  When the fox moves this information is needed to update the store.
+  let [foxSpace] = spaces.filter((space) => {
+    return space.trackerPresent;
+  });
 
   let dispatch = useDispatch();
 
@@ -29,6 +35,9 @@ const Board = (props) => {
   });
   const [player0] = players.filter((user) => {
     return user.player === 0;
+  });
+  const [player1] = players.filter((user) => {
+    return user.player === 1;
   });
 
   const determineWinner = () => {
@@ -69,9 +78,33 @@ const Board = (props) => {
       const winner = determineWinner;
 
       //if player0 wins then movement is negative.  if player1 wins then movement is positive.
-      let movementAmount = 100 * (player0Card.movement + player1Card.movement);
+      let movementAmount = player0Card.movement + player1Card.movement;
       let translateFox =
-        winner === "player0" ? -movementAmount : +movementAmount;
+        winner === "player0" ? -100 * movementAmount : 100 * movementAmount;
+
+      const happensAfterAnime = () => {
+        //dispatch to store information about the new fox location on the board.
+        const newFoxSpaceId = foxSpace.id + translateFox / 100;
+        const oldFoxSpaceIdx = foxSpace.id - 1;
+        const newFoxSpaceIdx = newFoxSpaceId - 1;
+        const oldFoxSpace = { ...foxSpace, trackerPresent: false };
+        let [newFoxSpace] = spaces.filter((space) => {
+          return space.id === newFoxSpaceId;
+        });
+        if (newFoxSpace.gemCount) {
+          newFoxSpace.gemCount--;
+        }
+        newFoxSpace.trackerPresent = true;
+        const newSpaces = [...spaces];
+        newSpaces.splice(oldFoxSpaceIdx, 1, oldFoxSpace);
+        newSpaces.splice(newFoxSpaceIdx, 1, newFoxSpace);
+        dispatch(setSpaces(newSpaces));
+
+        //dipatch to store and emit information about switching leading player.
+        player0.isLeading = !player0.isLeading;
+        player1.isLeading = !player1.isLeading;
+        dispatch(goUpdatePlayers([player0, player1]));
+      };
 
       //animate fox movement.
       anime({
@@ -79,11 +112,8 @@ const Board = (props) => {
         translateX: translateFox,
         duration: 1500,
         easing: "easeInOutQuad",
+        complete: happensAfterAnime,
       });
-
-      //dispatch to store and emit information about the new fox location on the board.
-
-      // dipatch to store and emit information about switching leading player.
     }
   }, [trickEnded]);
 
