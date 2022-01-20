@@ -1,6 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import Space from "./Space";
-import { fetchSpaces, setSpaces } from "../store/spaces";
+import {
+  fetchSpaces,
+  setSpaces,
+  LEFT,
+  RIGHT,
+  moveOffPath,
+  moveOnPath,
+} from "../store/spaces";
 import { goUpdatePlayers } from "../store/players";
 import { setPlayer0Card, setPlayer1Card } from "../store/playedCards";
 import { useSelector, useDispatch } from "react-redux";
@@ -84,20 +91,44 @@ const Board = (props) => {
       const happensAfterAnime = () => {
         //dispatch to store information about the new fox location on the board.
         const newFoxSpaceId = foxSpace.id + translateFox / 100;
-        const oldFoxSpaceIdx = foxSpace.id - 1;
-        const newFoxSpaceIdx = newFoxSpaceId - 1;
-        const oldFoxSpace = { ...foxSpace, trackerPresent: false };
+        // const oldFoxSpaceIdx = foxSpace.id - 1;
+        // const newFoxSpaceIdx = newFoxSpaceId - 1;
+        // const oldFoxSpace = { ...foxSpace, trackerPresent: false };
         let [newFoxSpace] = spaces.filter((space) => {
           return space.id === newFoxSpaceId;
         });
-        if (newFoxSpace.gemCount) {
-          newFoxSpace.gemCount--;
+
+        //establish if the fox has moved off the path
+        let offPath =
+          newFoxSpaceId < 1 || newFoxSpaceId > 11 || !newFoxSpace.onPath
+            ? true
+            : false;
+        if (offPath) {
+          //if the player went off the path udpate the spaces in the store so that:
+          //onPath of the appropriate space is reset to false
+          //trackerPresent is reset to the new end of the path where the fox went off.
+          if (newFoxSpaceId < 6) {
+            dispatch(moveOffPath(LEFT));
+          }
+          if (newFoxSpaceId > 6) {
+            dispatch(moveOffPath(RIGHT));
+          }
+        } else {
+          //if the player didn't go off the path update the spaces in the store so that
+          //a gem is picked up if appropriate
+          //the fox is correctly relocated
+          dispatch(moveOnPath(newFoxSpace));
+          // //a gem is picked up if appropriate
+          // if (newFoxSpace.gemCount) {
+          //   newFoxSpace.gemCount--;
+          // }
+          // //the fox is correctly relocated
+          // newFoxSpace.trackerPresent = true;
+          // const newSpaces = [...spaces];
+          // newSpaces.splice(oldFoxSpaceIdx, 1, oldFoxSpace);
+          // newSpaces.splice(newFoxSpaceIdx, 1, newFoxSpace);
+          // dispatch(setSpaces(newSpaces));
         }
-        newFoxSpace.trackerPresent = true;
-        const newSpaces = [...spaces];
-        newSpaces.splice(oldFoxSpaceIdx, 1, oldFoxSpace);
-        newSpaces.splice(newFoxSpaceIdx, 1, newFoxSpace);
-        dispatch(setSpaces(newSpaces));
 
         //dipatch to store and emit information about who should lead the next trick (whoever won this trick)
         if (winner === "player0") {
