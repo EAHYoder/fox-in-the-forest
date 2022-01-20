@@ -146,7 +146,7 @@ button {
 }
 
 .tracker {
-  background-image: url("https://www.clipartmax.com/png/full/228-2288366_036-fox-icon-icon.png");
+  background-image: url("./images/fox-icon.png");
   background-size: cover;
   height: 30px;
   width: 30px;
@@ -203,7 +203,7 @@ button {
 }
 
 .dove-img {
-  background-image: url("https://image.freepik.com/free-vector/green-leaf-bird-logo_7108-43.jpg");
+  background-image: url("./images/dove-icon.jpg");
   height: 40px;
   width: 40px;
   margin: 5px;
@@ -211,12 +211,12 @@ button {
 }
 
 .rose-img {
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTljnyCVo-wSTEBlflFH-on47214T8BEe7dVw&usqp=CAU");
+  background-image: url("./images/rose-icon.jpeg");
   margin: 15px;
   margin-bottom: 8px;
 }
 .star-img {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Blue_compass_rose.svg/2048px-Blue_compass_rose.svg.png");
+  background-image: url("./images/star-icon.png");
   height: 40px;
   width: 40px;
   margin: 5px;
@@ -224,7 +224,7 @@ button {
 }
 
 .paw {
-  background-image: url("https://static.vecteezy.com/system/resources/previews/003/619/221/non_2x/animal-paw-print-icon-wild-symbol-free-vector.jpg");
+  background-image: url("./images/paw-icon.jpg");
   background-size: cover;
   height: 12px;
   width: 12px;
@@ -284,7 +284,7 @@ button {
 }
 
 .tracker-demo {
-  background-image: url("https://www.clipartmax.com/png/full/228-2288366_036-fox-icon-icon.png");
+  background-image: url("./images/fox-icon.png");
   background-size: cover;
   height: 30px;
   width: 30px;
