@@ -61,16 +61,107 @@ const Card = (props) => {
     return user.player !== thisPlayerNum;
   });
 
-  //obtain the player's hand from the store.  this is needed to remove a card from the hand when it is played.
+  //obtain the player's hand from the store.  this is needed to remove a card from the hand when it is played.  It is also needed to check if a following card is valid.
   let authHand = useSelector((state) => state.authHand) || [];
 
-  const playCard = async (playedCard) => {
-    //check that the person trying to play a card is active.
-    if (thisPlayer.isActive) {
-      //check whether this is the first card in the trick(is this player the leading player?).
-      //if it is not the first card in the trick check suit of the first card.
-      //does this hand have a card of that suit?  if so one of those cards must be played.
+  let { player0Card, player1Card } = useSelector((state) => {
+    return state.playedCards;
+  });
 
+  const isValidtoPlayCard = (playedCard) => {
+    //check that the person trying to play a card is active.
+    if (!thisPlayer.isActive) {
+      alert("You cannot play a card unless you are the active player");
+    }
+    //if this card is being played by the following player
+    if (!thisPlayer.isLeading && thisPlayer.isActive) {
+      //obtain the suit of the leading card played earlier this trick.
+      const leadingSuit = player0Card.suit
+        ? player0Card.suit
+        : player1Card.suit;
+
+      //check if the following player has the leading suit in their hand
+      let hasLeadingSuit = authHand.some(
+        (handCard) => handCard.suit === leadingSuit
+      );
+      if (playedCard.suit !== leadingSuit && hasLeadingSuit) {
+        //if the following player could have followed suit and didn't don't let the card be played.
+        alert(
+          "You need to follow the leading player's suit when you have that suit in hand."
+        );
+      }
+    }
+
+    if (thisPlayer.isLeading && thisPlayer.isActive) {
+      playCard(playedCard);
+    }
+  };
+
+  const playCard = async (playedCard) => {
+    // //check that the person trying to play a card is active.
+    // if (thisPlayer.isActive) {
+    //   //if this card is being played by the following player
+    //   if (!thisPlayer.isLeading) {
+    //     //obtain the suit of the leading card played earlier this trick.
+    //     const leadingSuit = player0Card.suit
+    //       ? player0Card.suit
+    //       : player1Card.suit;
+
+    //     //check if the following player has the leading suit in their hand
+    //     let hasLeadingSuit = authHand.some(
+    //       (handCard) => handCard.suit === leadingSuit
+    //     );
+    //     if (playedCard.suit !== leadingSuit && hasLeadingSuit) {
+    //       //if the following player could have followed suit and didn't don't let the card be played.
+    //       alert(
+    //         "You need to follow the leading player's suit when you have that suit in hand."
+    //       );
+    //     }
+    //   }
+
+    //check if this is valid play
+    let validAction = false;
+    //one type of valid play is an active leading player.  They can play any card they have.
+    if (thisPlayer.isActive && thisPlayer.isLeading) {
+      validAction = true;
+    }
+    if (!thisPlayer.isActive) {
+      alert("You cannot play a card unless you are the active player");
+    }
+
+    //this explores the valid plays for an active following player
+    if (thisPlayer.isActive && !thisPlayer.isLeading) {
+      //obtain the suit of the leading card played earlier this trick.
+      const leadingSuit = player0Card.suit
+        ? player0Card.suit
+        : player1Card.suit;
+
+      //check if the following player followed suit.
+      //another type of valid play is an active following player who follows suit.
+      if (leadingSuit === playedCard.suit) {
+        validAction = true;
+      }
+
+      //check if the following player has the leading suit in their hand
+      let hasLeadingSuit = authHand.some(
+        (handCard) => handCard.suit === leadingSuit
+      );
+
+      //another type of valid play is an active following player who doesn't have the following suit
+      if (!hasLeadingSuit) {
+        validAction = true;
+      }
+
+      if (playedCard.suit !== leadingSuit && hasLeadingSuit) {
+        //if the following player could have followed suit and didn't let the user know thats cheating!
+        alert(
+          "You need to follow the leading player's suit when you have that suit in hand."
+        );
+      }
+    }
+
+    //only run the rest of this function if it is a valid play.
+    if (validAction) {
       const happensAfterAnime = () => {
         //remove the card from authHand
         const newHand = authHand.filter((card) => {
@@ -113,8 +204,6 @@ const Card = (props) => {
         easing: "easeInOutQuad",
         complete: happensAfterAnime,
       });
-    } else {
-      alert("You cannot play a card unless you are the active player");
     }
   };
 
