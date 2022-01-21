@@ -9,7 +9,10 @@ import { goUpdatePlayers } from "../store/players";
 const StartRound = () => {
   let dispatch = useDispatch();
   let existingDeal = useSelector((state) => state.deal);
-  //access the decree id from the deal object in the store.  use it to be the decree card object in the store.
+  //the game is midRound if there are still cards in the player's hand and the players have not yet lost by oversteppig path more than 3x.
+  let midRound = useSelector(
+    (state) => !!state.authHand.length && state.offPathCount < 4
+  );
 
   let players = useSelector((state) => state.players);
   let auth = useSelector((state) => state.auth) || {};
@@ -52,7 +55,13 @@ const StartRound = () => {
 
   return (
     <div className="player">
-      <button onClick={handleClick}>Start New Round!</button>
+      {midRound ? (
+        <div></div>
+      ) : (
+        <button onClick={handleClick} disabled={midRound}>
+          Start New Round!
+        </button>
+      )}
     </div>
   );
 };

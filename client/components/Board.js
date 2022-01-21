@@ -169,7 +169,7 @@ const Board = (props) => {
       anime({
         targets: fox.current,
         translateX: translateFox,
-        duration: 1500,
+        duration: 3000,
         easing: "easeInOutQuad",
         complete: happensAfterAnime,
       });

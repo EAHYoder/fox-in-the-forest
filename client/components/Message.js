@@ -9,23 +9,25 @@ const Message = (props) => {
 
   useEffect(() => {
     //when the fox oversteps the path, make message appear for 5 seconds and then have it fade.
-    let timeline1 = anime.timeline();
-    timeline1.add({
-      targets: offPathMessage.current,
-      opacity: 0,
-      duration: 1,
-    });
-    timeline1.add({
-      targets: offPathMessage.current,
-      opacity: 1,
-      duration: 3000,
-    });
-    timeline1.add({
-      targets: offPathMessage.current,
-      opacity: 0,
-      duration: 3000,
-      delay: 5000,
-    });
+    if (offPathCount > 0 && offPathCount < 4) {
+      let timeline1 = anime.timeline();
+      timeline1.add({
+        targets: offPathMessage.current,
+        opacity: 0,
+        duration: 1,
+      });
+      timeline1.add({
+        targets: offPathMessage.current,
+        opacity: 1,
+        duration: 3000,
+      });
+      timeline1.add({
+        targets: offPathMessage.current,
+        opacity: 0,
+        duration: 3000,
+        delay: 5000,
+      });
+    }
     //if the fox has now strayed 4 times display game over message
     if (offPathCount === 4) {
       anime({
