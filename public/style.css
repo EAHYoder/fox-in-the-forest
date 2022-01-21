@@ -316,6 +316,7 @@ button {
 }
 .offPathCount {
   height: 120px;
+  border: #532a09 solid 5px;
 }
 
 .top-of-game {

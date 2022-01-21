@@ -68,11 +68,13 @@ const Card = (props) => {
     return state.playedCards;
   });
 
+  let gameNotLost = useSelector((state) => state.offPathCount < 4);
+
   const playCard = async (playedCard) => {
     //check if this is valid play
     let validAction = false;
     //one type of valid play is an active leading player.  They can play any card they have.
-    if (thisPlayer.isActive && thisPlayer.isLeading) {
+    if (thisPlayer.isActive && thisPlayer.isLeading && gameNotLost) {
       validAction = true;
     }
     if (!thisPlayer.isActive) {
@@ -80,7 +82,7 @@ const Card = (props) => {
     }
 
     //this explores the valid plays for an active following player
-    if (thisPlayer.isActive && !thisPlayer.isLeading) {
+    if (thisPlayer.isActive && !thisPlayer.isLeading && gameNotLost) {
       //obtain the suit of the leading card played earlier this trick.
       const leadingSuit = player0Card.suit
         ? player0Card.suit
