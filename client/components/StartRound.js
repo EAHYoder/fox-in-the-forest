@@ -4,7 +4,6 @@ import { goDeleteDeal, goMakeDeal } from "../store/deal";
 import { goUpdatePlayers } from "../store/players";
 
 //this component is  a button that will dispatch a thunk to build the deal (thats like shuffling) and emit an event so the server will tell other players the deal has been done
-//Perhaps this shoudl also trigger making the player who did not click "start new round" the active player who leads the first trick?
 //getting the cards into the store for the local auth hand and the decree is hanlded by those components.
 
 const StartRound = () => {

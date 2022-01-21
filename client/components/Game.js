@@ -5,7 +5,9 @@ import Player from "./Player";
 import Board from "./Board";
 import StartRound from "./StartRound";
 import PlayedCards from "./PlayedCards";
+import OffPathCount from "./OffPathCount";
 import Hand from "./Hand";
+import Message from "./Message";
 
 const Game = () => {
   //gives us access to the redux store without using mapStateToProps
@@ -33,12 +35,17 @@ const Game = () => {
 
   return (
     <div>
+      <div className="top-of-game">
+        <StartRound />
+        <OffPathCount />
+        <Message />
+      </div>
       <div className="board-and-players">
         <Player player={player0} />
         <Board id="board" />
         <Player player={player1} />
       </div>
-      <StartRound />
+
       <PlayedCards
         player0CardSlot={player0CardSlot}
         player1CardSlot={player1CardSlot}
