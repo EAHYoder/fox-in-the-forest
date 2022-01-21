@@ -15,13 +15,13 @@ const spaces = [
   {
     trackerPresent: false,
     onPath: true,
-    gemCount: 1,
+    gemCount: 0,
     gemIncrement: 1,
   },
   {
     trackerPresent: false,
     onPath: true,
-    gemCount: 2,
+    gemCount: 1,
     gemIncrement: 0,
   },
   {
@@ -57,13 +57,13 @@ const spaces = [
   {
     trackerPresent: false,
     onPath: true,
-    gemCount: 2,
+    gemCount: 1,
     gemIncrement: 1,
   },
   {
     trackerPresent: false,
     onPath: true,
-    gemCount: 1,
+    gemCount: 0,
     gemIncrement: 0,
   },
   {
