@@ -9,6 +9,7 @@ import {
   moveOnPath,
 } from "../store/spaces";
 import { goUpdatePlayers } from "../store/players";
+import { incrementOffPathCount } from "../store/offPathCount";
 import { setPlayer0Card, setPlayer1Card } from "../store/playedCards";
 import { useSelector, useDispatch } from "react-redux";
 import anime from "animejs/lib/anime.es.js";
@@ -110,6 +111,9 @@ const Board = (props) => {
           if (newFoxSpaceId > 6) {
             await dispatch(moveOffPath(RIGHT));
           }
+
+          //increment the offPathcounter in the store
+          dispatch(incrementOffPathCount());
         } else {
           //if the player didn't go off the path update the spaces in the store so that
           //a gem is picked up if appropriate
@@ -165,7 +169,7 @@ const Board = (props) => {
       anime({
         targets: fox.current,
         translateX: translateFox,
-        duration: 1500,
+        duration: 3000,
         easing: "easeInOutQuad",
         complete: happensAfterAnime,
       });

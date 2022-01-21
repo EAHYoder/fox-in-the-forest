@@ -4,13 +4,15 @@ import { goDeleteDeal, goMakeDeal } from "../store/deal";
 import { goUpdatePlayers } from "../store/players";
 
 //this component is  a button that will dispatch a thunk to build the deal (thats like shuffling) and emit an event so the server will tell other players the deal has been done
-//Perhaps this shoudl also trigger making the player who did not click "start new round" the active player who leads the first trick?
 //getting the cards into the store for the local auth hand and the decree is hanlded by those components.
 
 const StartRound = () => {
   let dispatch = useDispatch();
   let existingDeal = useSelector((state) => state.deal);
-  //access the decree id from the deal object in the store.  use it to be the decree card object in the store.
+  //the game is midRound if there are still cards in the player's hand and the players have not yet lost by oversteppig path more than 3x.
+  let midRound = useSelector(
+    (state) => !!state.authHand.length && state.offPathCount < 4
+  );
 
   let players = useSelector((state) => state.players);
   let auth = useSelector((state) => state.auth) || {};
@@ -53,7 +55,13 @@ const StartRound = () => {
 
   return (
     <div className="player">
-      <button onClick={handleClick}>Start New Round!</button>
+      {midRound ? (
+        <div></div>
+      ) : (
+        <button onClick={handleClick} disabled={midRound}>
+          Start New Round!
+        </button>
+      )}
     </div>
   );
 };
