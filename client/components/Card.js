@@ -68,57 +68,7 @@ const Card = (props) => {
     return state.playedCards;
   });
 
-  const isValidtoPlayCard = (playedCard) => {
-    //check that the person trying to play a card is active.
-    if (!thisPlayer.isActive) {
-      alert("You cannot play a card unless you are the active player");
-    }
-    //if this card is being played by the following player
-    if (!thisPlayer.isLeading && thisPlayer.isActive) {
-      //obtain the suit of the leading card played earlier this trick.
-      const leadingSuit = player0Card.suit
-        ? player0Card.suit
-        : player1Card.suit;
-
-      //check if the following player has the leading suit in their hand
-      let hasLeadingSuit = authHand.some(
-        (handCard) => handCard.suit === leadingSuit
-      );
-      if (playedCard.suit !== leadingSuit && hasLeadingSuit) {
-        //if the following player could have followed suit and didn't don't let the card be played.
-        alert(
-          "You need to follow the leading player's suit when you have that suit in hand."
-        );
-      }
-    }
-
-    if (thisPlayer.isLeading && thisPlayer.isActive) {
-      playCard(playedCard);
-    }
-  };
-
   const playCard = async (playedCard) => {
-    // //check that the person trying to play a card is active.
-    // if (thisPlayer.isActive) {
-    //   //if this card is being played by the following player
-    //   if (!thisPlayer.isLeading) {
-    //     //obtain the suit of the leading card played earlier this trick.
-    //     const leadingSuit = player0Card.suit
-    //       ? player0Card.suit
-    //       : player1Card.suit;
-
-    //     //check if the following player has the leading suit in their hand
-    //     let hasLeadingSuit = authHand.some(
-    //       (handCard) => handCard.suit === leadingSuit
-    //     );
-    //     if (playedCard.suit !== leadingSuit && hasLeadingSuit) {
-    //       //if the following player could have followed suit and didn't don't let the card be played.
-    //       alert(
-    //         "You need to follow the leading player's suit when you have that suit in hand."
-    //       );
-    //     }
-    //   }
-
     //check if this is valid play
     let validAction = false;
     //one type of valid play is an active leading player.  They can play any card they have.

@@ -1,6 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import Space from "./Space";
-import { fetchSpaces, setSpaces } from "../store/spaces";
+import {
+  fetchSpaces,
+  setSpaces,
+  LEFT,
+  RIGHT,
+  moveOffPath,
+  moveOnPath,
+} from "../store/spaces";
 import { goUpdatePlayers } from "../store/players";
 import { setPlayer0Card, setPlayer1Card } from "../store/playedCards";
 import { useSelector, useDispatch } from "react-redux";
@@ -81,23 +88,58 @@ const Board = (props) => {
         winner === "player0" ? -100 * movementAmount : 100 * movementAmount;
       //changing the direction in which the fox should move doesn't seem to be working.
 
-      const happensAfterAnime = () => {
+      const happensAfterAnime = async () => {
         //dispatch to store information about the new fox location on the board.
         const newFoxSpaceId = foxSpace.id + translateFox / 100;
-        const oldFoxSpaceIdx = foxSpace.id - 1;
-        const newFoxSpaceIdx = newFoxSpaceId - 1;
-        const oldFoxSpace = { ...foxSpace, trackerPresent: false };
         let [newFoxSpace] = spaces.filter((space) => {
           return space.id === newFoxSpaceId;
         });
-        if (newFoxSpace.gemCount) {
-          newFoxSpace.gemCount--;
+
+        //establish if the fox has moved off the path
+        let offPath =
+          newFoxSpaceId < 1 || newFoxSpaceId > 11 || !newFoxSpace.onPath
+            ? true
+            : false;
+        if (offPath) {
+          //if the player went off the path udpate the spaces in the store so that:
+          //  onPath of the appropriate space is reset to false
+          //  trackerPresent is reset to the new end of the path where the fox went off.
+          if (newFoxSpaceId < 6) {
+            await dispatch(moveOffPath(LEFT));
+          }
+          if (newFoxSpaceId > 6) {
+            await dispatch(moveOffPath(RIGHT));
+          }
+        } else {
+          //if the player didn't go off the path update the spaces in the store so that
+          //a gem is picked up if appropriate
+          //the fox is correctly relocated
+          await dispatch(moveOnPath(newFoxSpace));
         }
-        newFoxSpace.trackerPresent = true;
-        const newSpaces = [...spaces];
-        newSpaces.splice(oldFoxSpaceIdx, 1, oldFoxSpace);
-        newSpaces.splice(newFoxSpaceIdx, 1, newFoxSpace);
-        dispatch(setSpaces(newSpaces));
+
+        //the initial fox animation has moved the position of the fox tracker on this div.  it needs to be restored to its original position
+        let restoreFoxAnime = anime.timeline();
+        //make the fox disappear,
+        restoreFoxAnime.add({
+          targets: fox.current,
+          opacity: 0,
+          duration: 0,
+          easing: "easeInOutQuad",
+        });
+        //move the fox back onto the correct spot on the path.
+        restoreFoxAnime.add({
+          targets: fox.current,
+          translateX: 0,
+          duration: 1,
+          easing: "easeInOutQuad",
+        });
+        //make the fox reaappear,
+        restoreFoxAnime.add({
+          targets: fox.current,
+          opacity: 1,
+          duration: 0,
+          easing: "easeInOutQuad",
+        });
 
         //dipatch to store and emit information about who should lead the next trick (whoever won this trick)
         if (winner === "player0") {
