@@ -69,38 +69,50 @@ export default (state = [], action) => {
       return newSpaces;
     case MOVE_OFF_PATH:
       let spaces = [...state];
-      //if the player went off the board on the right reverse the spaces array.
-      if (action.direction === RIGHT) {
-        spaces.reverse();
-      }
+
       //find the space whose onPath needs to be reset to false
       //if the player stepped off on the left this is the first space with onPath=true.
       //if the player stepped off on the right this is the last space with onpath=true
       //we reversed the spaces order for stepping off on right so the find function will work
-      let spaceToChange = spaces.find((space) => space.onPath);
-      spaceToChange.onPath = false;
-      let gemsToMove = spaceToChange.gemCount;
-
+      //if the player went off the board on the right reverse the spaces array.
       if (action.direction === RIGHT) {
-        spaces.reverse;
+        spaces.reverse();
       }
+      let spaceToChangePath = spaces.find((space) => space.onPath);
+      console.log(
+        "id of space that needs onPath reset to false",
+        spaceToChangePath.id
+      );
+      //spaceToChange.onPath = false;
+      if (action.direction === RIGHT) {
+        spaces.reverse();
+      }
+
+      let gemsToMove = spaceToChangePath.gemCount;
+      console.log("gemsToMove", gemsToMove);
 
       //find the space where the fox should be put back on the path.
       let newFoxSpaceId =
         action.direction === RIGHT
-          ? spaceToChange.id - 1
-          : spaceToChange.id + 1;
+          ? spaceToChangePath.id - 1
+          : spaceToChangePath.id + 1;
+      console.log("newFoxSpaceId", newFoxSpaceId);
       //update the spaces to indicate where the fox has been put back
-      spaces.forEach((space) => {
+      let brandNewSpaces = spaces.map((space) => {
+        let newSpace = { ...space };
         if (space.id === newFoxSpaceId) {
-          space.trackerPresent = true;
-          space.gemCount += gemsToMove;
+          newSpace.trackerPresent = true;
+          newSpace.gemCount += gemsToMove;
         } else {
-          space.trackerPresent = false;
+          newSpace.trackerPresent = false;
         }
+        if (space.id === spaceToChangePath.id) {
+          newSpace.onPath = false;
+        }
+        return newSpace;
       });
 
-      return spaces;
+      return brandNewSpaces;
     default:
       return state;
   }
