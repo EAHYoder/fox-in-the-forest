@@ -42,13 +42,14 @@ const Message = (props) => {
   //display messaging related to winning the game
   let spaces = useSelector((state) => state.spaces) || [];
   let victoryMesage = useRef(null);
-  let remainingGemCount = spaces.legnth
+  let remainingGemCount = spaces.length
     ? spaces.reduce((runningCount, currentSpace) => {
         return runningCount + currentSpace.gemCount;
       }, 0)
     : 1;
 
   useEffect(() => {
+    console.log("remaining Gems Count", remainingGemCount);
     if (remainingGemCount === 0) {
       anime({
         targets: victoryMesage.current,
@@ -56,7 +57,7 @@ const Message = (props) => {
         duration: 1000,
       });
     }
-  });
+  }, [spaces]);
 
   return (
     <div>
