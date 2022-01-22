@@ -1,12 +1,12 @@
 {
-  "name": "fs-app-template",
+  "name": "fox-in-the-forest",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "A two player cooperative card game in a web browser",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
-    "seed": "node script/seed.js",
+    "seed": "node script/seed.ts",
     "start": "node server",
     "start:dev": "npm run build:dev & npm run start-server",
     "start:dev:logger": "LOGGING=true npm run start:dev",
@@ -17,7 +17,7 @@
     "test:dev:models": "npm run test:dev -- --grep=model",
     "test:dev:routes": "npm run test:dev -- --grep=route"
   },
-  "author": "Fullstack Academy of Code",
+  "author": "EAHYoder",
   "license": "MIT",
   "dependencies": {
     "animejs": "^3.2.1",
@@ -37,6 +37,7 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/register": "^7.12.10",
+    "awesome-typescript-loader": "^5.2.1",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.16.0",
     "babel-loader": "^8.2.2",
@@ -57,6 +58,8 @@
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "supertest": "^4.0.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^3",
     "webpack": "^5.15.0",
     "webpack-cli": "^4.3.1"
   }

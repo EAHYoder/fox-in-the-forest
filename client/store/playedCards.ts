@@ -1,5 +1,5 @@
 import axios from "axios";
-import socket from "../socket.js";
+import socket from "../socket";
 
 //ACTION TYPE
 const SET_PLAYER0_CARD = "SET_PLAYER0_CARD";

@@ -1,24 +1,27 @@
 module.exports = {
-  entry: [
-    './client/index.js'
-  ],
+  entry: ["./client/index.tsx"],
   output: {
     path: __dirname,
-    filename: './public/bundle.js'
+    filename: "./public/bundle.js",
   },
-  devtool: 'source-map',
+  resolve: {
+    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+  },
+  devtool: "source-map",
   module: {
     rules: [
       {
+        test: /\.(ts|tsx)$/,
+        loader: "awesome-typescript-loader",
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         options: {
-          presets: [
-            '@babel/preset-react'
-          ]
-        }
-      }
-    ]
-  }
-}
+          presets: ["@babel/preset-react"],
+        },
+      },
+    ],
+  },
+};

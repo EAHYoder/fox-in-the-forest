@@ -1,6 +1,6 @@
 import axios from "axios";
 import history from "../history";
-import socket from "../socket.js";
+import socket from "../socket";
 
 const TOKEN = "token";
 
