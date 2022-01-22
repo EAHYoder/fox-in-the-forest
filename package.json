@@ -1,5 +1,5 @@
 {
-  "name": "fox-in-the-forest",
+  "name": "fs-app-template",
   "version": "2.0.0",
   "description": "A two player cooperative card game in a web browser",
   "main": "index.js",
@@ -12,6 +12,7 @@
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start:dev:seed": "SEED=true npm run start:dev",
     "start-server": "JWT=shh nodemon server -e html,js,scss --ignore public --ignore client",
+    "start-server-ts": "ts-node-dev --respawn --transpile-only -P tsconfig.server.json server/index.ts",
     "test": "NODE_ENV=test JWT=a_secret mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" --require @babel/register --require esm ",
     "test:dev": "npm run test -- --watch",
     "test:dev:models": "npm run test:dev -- --grep=model",
@@ -59,6 +60,7 @@
     "redux-thunk": "^2.3.0",
     "supertest": "^4.0.2",
     "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
     "typescript": "^3",
     "webpack": "^5.15.0",
     "webpack-cli": "^4.3.1"

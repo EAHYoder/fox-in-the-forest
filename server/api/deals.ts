@@ -1,11 +1,10 @@
-const router = require("express").Router();
-const {
-  models: { Deal },
-} = require("../db");
+import * as express from "express"
+const router= express.Router()
+import { Deal } from "../db";
 
 //routes here are already mounted on /api/deal
 
-router.get("/", async (req, res, next) => {
+router.get("/", async (req: Express.Request, res: Express.Response, next) => {
   try {
     //there should only ever be one deal.
     const [deal] = await Deal.findAll();
@@ -16,7 +15,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.delete("/", async (req, res, next) => {
+router.delete("/", async (req: Express.Request, res: Express.Response, next) => {
   try {
     // there should only ever be one deal at a time, so there is only one option of what to delete.
     const [existingDeal] = await Deal.findAll();
@@ -30,7 +29,7 @@ router.delete("/", async (req, res, next) => {
 });
 
 //make a deal
-router.post("/", async (req, res, next) => {
+router.post("/", async (req: Express.Request, res: Express.Response, next) => {
   try {
     //MAKE AN ARRAY OF CARD IDs IN RANDOM ORDER FROM WHICH YOU CAN DEAL
     //list out the card IDs that needs to be shuffled
@@ -83,4 +82,4 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;

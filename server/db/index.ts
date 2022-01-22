@@ -1,19 +1,17 @@
 //this is the access point for all things database related!
+import db from './db';
 
-const db = require("./db");
+import User from "./models/User";
+import Space from "./models/space";
+import Card from "./models/card";
+import Deal from "./models/deal";
 
-const User = require("./models/User");
-const Space = require("./models/space");
-const Card = require("./models/card");
-const Deal = require("./models/deal");
 //associations could go here!
 
-module.exports = {
+export {
   db,
-  models: {
-    User,
-    Space,
-    Card,
-    Deal,
-  },
+  User,
+  Space,
+  Card,
+  Deal,
 };

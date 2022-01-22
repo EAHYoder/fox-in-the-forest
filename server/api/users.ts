@@ -1,11 +1,10 @@
-const router = require("express").Router();
-const Sequelize = require("sequelize");
-const {
-  models: { User },
-} = require("../db");
+import * as express from 'express'
+const router= express.Router()
+import { Sequelize } from 'sequelize';
+import { User } from "../db";
 
 //get all user who have ever signed up (I dont think my app needs this, but it's not a bad route to have)
-router.get("/", async (req, res, next) => {
+router.get("/", async (req: express.Request, res: express.Response, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
@@ -20,7 +19,7 @@ router.get("/", async (req, res, next) => {
 });
 
 //get all users who are currenly logged in as players
-router.get("/players", async (req, res, next) => {
+router.get("/players", async (req: express.Request, res: express.Response, next) => {
   try {
     const players = await User.findAll({
       where: {
@@ -34,7 +33,7 @@ router.get("/players", async (req, res, next) => {
 });
 
 //update information about the users who are currently logged in as players
-router.put("/players", async (req, res, next) => {
+router.put("/players", async (req: express.Request, res: express.Response, next) => {
   try {
     //establish what the new player objects are from the req.body
     const newPlayer0 = req.body[0];
@@ -54,4 +53,4 @@ router.put("/players", async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;
