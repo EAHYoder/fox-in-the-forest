@@ -9,10 +9,21 @@ import { goUpdatePlayers } from "../store/players";
 const StartRound = () => {
   let dispatch = useDispatch();
   let existingDeal = useSelector((state) => state.deal);
-  //the game is midRound if there are still cards in the player's hand and the players have not yet lost by oversteppig path more than 3x.
-  let midRound = useSelector(
-    (state) => !!state.authHand.length && state.offPathCount < 4
-  );
+
+  let midRound = useSelector((state) => {
+    let remainingGemCount = state.spaces.length
+      ? spaces.reduce((runningCount, currentSpace) => {
+          return runningCount + currentSpace.gemCount;
+        }, 0)
+      : 1;
+    //the game is midRound if
+    //there are still cards in the player's hand and
+    //the players have not yet lost by oversteppig path more than 3x. and
+    //the players have not yet won by collecting all the gems
+    return (
+      !!state.authHand.length && state.offPathCount < 4 && remainingGemCount
+    );
+  });
 
   let players = useSelector((state) => state.players);
   let auth = useSelector((state) => state.auth) || {};

@@ -49,7 +49,6 @@ const Message = (props) => {
     : 1;
 
   useEffect(() => {
-    console.log("remaining Gems Count", remainingGemCount);
     if (remainingGemCount === 0) {
       anime({
         targets: victoryMesage.current,
