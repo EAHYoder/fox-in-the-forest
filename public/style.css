@@ -261,6 +261,10 @@ button {
   margin-right: 10%;
 }
 
+.rule-text li {
+  text-align: left;
+}
+
 .demo-larger {
   border: 5px solid #283618;
   border-radius: 10px;
@@ -281,6 +285,26 @@ button {
   justify-content: space-evenly;
   margin-top: 10%;
   margin-bottom: 10%;
+}
+
+.off-path-demo {
+  background-color: #3e4c22;
+  width: 100px;
+}
+
+.gem-appear-demo {
+  background-color: #9e2a2b;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  left: 50%;
+  transform: translate(50%, -0%);
+  opacity: 0;
+}
+
+.gem-appear-demo > p {
+  text-align: center;
+  color: #bfab67;
 }
 
 .tracker-demo {

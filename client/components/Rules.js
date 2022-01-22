@@ -4,6 +4,7 @@ import Card from "./Card";
 import Demo1 from "./Demo1";
 import Demo2 from "./Demo2";
 import Demo3 from "./Demo3";
+import Demo4 from "./Demo4";
 const Rules = () => {
   return (
     <div>
@@ -42,6 +43,29 @@ const Rules = () => {
         </p>
         <div className="demo-larger">
           <Demo3 />
+        </div>
+      </div>
+      <div className="rule-concept">
+        <div className="rule-text">
+          <p>If the fox moves beyond the path the following will happen:</p>
+          <ul>
+            <li>
+              The end of the path where the fox stepped off will be shortened by
+              one space
+            </li>
+            <li>
+              Any gems that had been on the removed part of the path will be
+              shifted to the new end of the path.
+            </li>
+            <li>The fox will be moved to the new end of the path.</li>
+          </ul>
+          <p>
+            If the fox strays from the path more than three times the game is
+            over.
+          </p>
+        </div>
+        <div className="demo-larger">
+          <Demo4 />
         </div>
       </div>
     </div>
