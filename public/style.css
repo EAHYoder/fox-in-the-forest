@@ -338,6 +338,13 @@ button {
 .demo-role {
   margin: 5px;
 }
+
+.demo-winner {
+  margin: 2px;
+  color: #bc6c25;
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
 .offPathCount {
   height: 120px;
   border: #532a09 solid 5px;
