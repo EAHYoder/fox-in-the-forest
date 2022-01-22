@@ -1,38 +1,50 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const axios = require("axios");
+import { Sequelize, Optional, Model, DataTypes } from 'sequelize';
+import db from "../db"
+import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
+import axios from "axios"
+import {UserAttributes} from "../../../models/UserAttributes"
 
 const SALT_ROUNDS = 5;
 
-const User = db.define("user", {
+// This line allows us to create an User using User.create() and not have to supply an id because it's optional
+interface UserCreationAttributes extends Optional <UserAttributes, 'id'>{}
+
+// This interface is the type of the sequelize model generated from db.define
+interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {}
+
+const User = db.define<UserInstance>("user", {
+  id:{
+    primaryKey:true,
+    type:DataTypes.INTEGER,
+    autoIncrement:true,
+  },
   username: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     unique: true,
     allowNull: false,
   },
   password: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
   },
   //null means the player is not logged in.  0 means they are player 0, 1 means they are player 1.
   player: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     defaultValue: null,
   },
   //is this the active player
   isActive: {
-    type: Sequelize.BOOLEAN,
+    type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
   //is this player leading the current trick?
   isLeading: {
-    type: Sequelize.BOOLEAN,
+    type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
 });
 
-module.exports = User;
+
 
 //instanceMethods
 User.prototype.correctPassword = function (candidatePwd) {
@@ -113,3 +125,5 @@ const hashPassword = async (user) => {
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);
 User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
+
+export default User;
