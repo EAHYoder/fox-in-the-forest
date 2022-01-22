@@ -59,7 +59,7 @@ const StartRound = () => {
         <div></div>
       ) : (
         <button onClick={handleClick} disabled={midRound}>
-          Start New Round!
+          Start New Game!
         </button>
       )}
     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import anime from "animejs/lib/anime.es.js";
 import { useSelector, useDispatch } from "react-redux";
+import { running } from "animejs";
 
 const Message = (props) => {
   let offPathMessage = useRef(null);
@@ -37,6 +38,27 @@ const Message = (props) => {
       });
     }
   }, [offPathCount]);
+
+  //display messaging related to winning the game
+  let spaces = useSelector((state) => state.spaces) || [];
+  let victoryMesage = useRef(null);
+  let remainingGemCount = spaces.length
+    ? spaces.reduce((runningCount, currentSpace) => {
+        return runningCount + currentSpace.gemCount;
+      }, 0)
+    : 1;
+
+  useEffect(() => {
+    console.log("remaining Gems Count", remainingGemCount);
+    if (remainingGemCount === 0) {
+      anime({
+        targets: victoryMesage.current,
+        opacity: 1,
+        duration: 1000,
+      });
+    }
+  }, [spaces]);
+
   return (
     <div>
       <div ref={offPathMessage} className="offPathMessage">
@@ -45,6 +67,9 @@ const Message = (props) => {
       <div ref={gameOverMesage} className="gameOverMesage">
         <h3> The Fox strayed too many times. </h3>
         <h2> GAME OVER </h2>
+      </div>
+      <div ref={victoryMesage} className="gameOverMesage">
+        <h3> YOU WIN! The Fox collected all the gems! </h3>
       </div>
     </div>
   );
