@@ -5,5 +5,7 @@ export interface UserAttributes {
   player?: number;
   isActive?: boolean;
   isLeading?: boolean;
+  readonly createdAt?: Date;
+  readonly updatedDate?: Date;
 
 }

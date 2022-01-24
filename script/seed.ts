@@ -1,9 +1,5 @@
 "use strict";
-
-const {
-  db,
-  models: { User, Space, Card },
-} = require("../server/db");
+import  { db,User, Space, Card ,} from "../server/db"
 
 const spaces = [
   {
@@ -324,4 +320,4 @@ if (module === require.main) {
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed;
+export default seed;

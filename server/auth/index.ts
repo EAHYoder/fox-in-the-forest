@@ -1,9 +1,7 @@
-const router = require("express").Router();
-const {
-  models: { User },
-} = require("../db");
-const Sequelize = require("sequelize");
-module.exports = router;
+import * as express from "express"
+const router= express.Router()
+import {User } from "../db";
+import Sequelize from "sequelize"
 
 //this generates a token for an existing user
 router.post("/login", async (req, res, next) => {
@@ -63,3 +61,5 @@ router.put("/logout", async (req, res, next) => {
     next(err);
   }
 });
+
+export default router

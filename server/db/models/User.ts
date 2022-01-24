@@ -11,7 +11,11 @@ const SALT_ROUNDS = 5;
 interface UserCreationAttributes extends Optional <UserAttributes, 'id'>{}
 
 // This interface is the type of the sequelize model generated from db.define
-interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {}
+//any method that exists on the class needs to be declared here (along with the type of what they return) so typescript knows to expect the method when it is created later.
+interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {
+   authenticate():string;
+   findByToken():object;
+ }
 
 const User = db.define<UserInstance>("user", {
   id:{

@@ -12,7 +12,8 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // auth and api routes
-app.use("/auth", require("./auth"));
+import authRouter from "./auth"
+app.use("/auth", authRouter);
 app.use("/api", require("./api")); //in Juke example of js->ts this was kept as module.exports.
 
 app.get("/", (req, res) =>
