@@ -12,7 +12,7 @@ const StartRound = () => {
 
   let midRound = useSelector((state) => {
     let remainingGemCount = state.spaces.length
-      ? spaces.reduce((runningCount, currentSpace) => {
+      ? state.spaces.reduce((runningCount, currentSpace) => {
           return runningCount + currentSpace.gemCount;
         }, 0)
       : 1;
