@@ -1,77 +1,73 @@
-# FS-App-Template
+# *Fox in the Forest*
 
-## Setup
+*A two player board game where team mates cooperatively move the fox through the forest to collect all the gems, taking care not to stray from the path too often.  This is a web version of the game with custom animations.* 
 
-To use this as boilerplate, you'll need to take the following steps:
+## Features
+- Users can log in and create an account.
+- Logged in users can review rules of the game which include animated demos of various gameplay concepts.
+- If two players are logged in a player can start a round.  This shuffles the deck, deals a hand of 11 cards to each player, and sets the decree card.  Each player is only able to see their own hand.
+- During a round the active leading player can start a trick by playing a card.  Both players are able to see any cards that have been played.
+- During a round the active following playing can complete a trick by playing a card.  When a trick is complete the fox will be moved the appropriate direction and distance based on the cards played.
+- If the fox moves off the path the following will happen: the path will be shortened, any gems on the lost part of the path will be relocated, the fox will be relocated to the new end of the path, and a part of the map will be lost.
+- If four pieces of the map are lost, a message will display indicating that the game is over and the players lose.
+- If both players run out of cards before all the gems are collected, a message will display indicating that the game is over and the players lose.
+- If the fox collects all the gems, a message will display indicating that the game is over and the players have won!
 
-* Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
+### Dependencies
 
-* Now you will have to add the fs-app-template as a remote and merge it into your own repository.
+- [Anime.js](https://animejs.com/) to animate card and fox movement.
+- [Axios](https://axios-http.com/docs/intro) to make calls to the back end from the front end.
+- [bCrypt](https://www.npmjs.com/package/bcrypt) to hash user passwords when accounts are set.
+- [Compression](https://www.npmjs.com/package/compression)
+- [Express](https://expressjs.com/) framework for back end.
+- [History](https://www.npmjs.com/package/history) to redirect the user to different views after certain actions.
+- [JSON Web Token](https://www.npmjs.com/package/jsonwebtoken) for authentication to ensure users only see their own hand of cards.
+- [Morgan](https://expressjs.com/en/resources/middleware/morgan.html) logging middleware in the back end.
+- [pg](https://www.npmjs.com/package/pg) to work with postgreSQL.
+- [socket.io](https://socket.io/) and [socket.io-client](https://socket.io/docs/v4/client-api/) to allow players to see the results of one another's actions.
 
-```
-git remote add boilermaker git@github.com:FullstackAcademy/fs-app-template.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
-```
+### Installation
 
-## Customize
+git clone 
+npm install
 
-Now that you've got the code, follow these steps to get acclimated:
+### Getting started
 
-* Update project name and description in `package.json`
-* `npm install`
-* Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
-* These commands will create both your **development** and **test** databases
+Before working with 
 
-```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
-```
+## Usage
 
-* By default, running `npm test` will use your test database, while
-  regular development uses development database
+*Give your users a sense of the workflow for using your project/tool.*
+*For a website this might include code for running locally.*
+*For an API this might include method and parameter specs.*
 
-## Start
+## Demo
 
-Sync and seed your database by running `npm run seed`. Running `npm run start:dev` will make great things happen!
+*Grab a simple block of code that makes use of your project/tool and paste it here.*
 
-- start:dev will both start your server and build your client side files using webpack
-- start:dev:logger is the same as start:dev, but you will see your SQL queries (can be helpful for debugging)
-- start:dev:seed will start your server and also seed your database (this is useful when you are making schema changes and you don't want to run your seed script separately)
+## Team
 
+**Liz Yoder** Sole Developer
 
-### Heroku
+[LinkedIn](https://www.linkedin.com/in/alston-white/)
 
-1.  Set up the [Heroku command line tools][heroku-cli]
-2.  `heroku login`
-3.  Add a git remote for heroku:
+[GitHub](https://github.com/EAHYoder)
 
-[heroku-cli]: https://devcenter.heroku.com/articles/heroku-cli
+[Portfolio](liz-yoder.netlify.app/)
 
-* **If you are creating a new app...**
+This is based on the board game made by [Renegade Game Studios](https://renegadegamestudios.com/fox-in-the-forest-duet/)
 
-  1.  `heroku create` or `heroku create your-app-name` if you have a
-      name in mind.
-  2.  `heroku config:set JWT=<your secret here!>` to set a secret for JWT signing
+## Errors and bugs
 
-Database Setup
+If something is not behaving intuitively, it is a bug and should be reported.
+Report it here by creating an issue: https://github.com/EAHYoder/fox-in-the-forest
 
-  3.  `heroku addons:create heroku-postgresql:hobby-dev` to add
-      ("provision") a postgres database to your heroku dyno (This creates your production database)
+Help us fix the problem as quickly as possible by following [Mozilla's guidelines for reporting bugs.](https://developer.mozilla.org/en-US/docs/Mozilla/QA/Bug_writing_guidelines#General_Outline_of_a_Bug_Report)
 
-  4.  `heroku config:set SEED=true` to get heroku to sync and seed your database
+## Patches and pull requests
 
-  5.   note everytime your app restarts, the database tables will be dropped and re-created. To avoid this you can `config:unset SEED`
-
-
-* **If you already have a Heroku app...**
-
-  1.  `heroku git:remote your-app-name` You'll need to be a
-      collaborator on the app.
-
-
-Now, you should be deployed!
+Your patches are welcome. Here's our suggested workflow:
+ 
+* Fork the project.
+* Make your feature addition or bug fix.
+* Send us a pull request with a description of your work. Bonus points for topic branches!
