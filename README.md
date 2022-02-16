@@ -1,6 +1,6 @@
 # *Fox in the Forest*
 
-*A two player board game where team mates cooperatively move the fox through the forest to collect all the gems, taking care not to stray from the path too often.  This is a web version of the game with custom animations.  The game is available to play for a two player team [here](fox-in-the-forest-game.herokuapp.com)* 
+*A two player board game where team mates cooperatively move the fox through the forest to collect all the gems, taking care not to stray from the path too often.  This is a web version of the game with custom animations.  The game is available to play for a two player team [here.](fox-in-the-forest-game.herokuapp.com)* 
 
 ## Features
 [This video](https://youtu.be/A4F8Tmr3BjM) demonstrates many of the games features which are listed here:
@@ -56,12 +56,12 @@ This is based on the board game made by [Renegade Game Studios](https://renegade
 If something is not behaving intuitively, it is a bug and should be reported.
 Report it here by creating an issue: https://github.com/EAHYoder/fox-in-the-forest
 
-Help us fix the problem as quickly as possible by following [Mozilla's guidelines for reporting bugs.](https://developer.mozilla.org/en-US/docs/Mozilla/QA/Bug_writing_guidelines#General_Outline_of_a_Bug_Report)
+Help me fix the problem as quickly as possible by following [Mozilla's guidelines for reporting bugs.](https://developer.mozilla.org/en-US/docs/Mozilla/QA/Bug_writing_guidelines#General_Outline_of_a_Bug_Report)
 
 ## Patches and pull requests
 
-Your patches are welcome. Here's our suggested workflow:
+Your patches are welcome. Here's my suggested workflow:
  
 * Fork the project.
 * Make your feature addition or bug fix.
-* Send us a pull request with a description of your work. Bonus points for topic branches!
+* Send me a pull request with a description of your work. Bonus points for topic branches!
